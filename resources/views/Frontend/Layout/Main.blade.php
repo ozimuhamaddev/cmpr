@@ -51,7 +51,7 @@
         <!-- Footer end -->
         <!-- Javascript Files
   ================================================== -->
-
+        @yield('Js')
         <!-- initialize jQuery Library -->
         <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/plugins/jQuery/jquery.min.js') }}"></script>
         <!-- Bootstrap jQuery -->
