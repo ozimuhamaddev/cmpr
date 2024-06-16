@@ -20,13 +20,14 @@ class Main extends Controller
             "token" => session('token')
         ];
 
-        $data['banner-home'] = json_decode(HelperService::myCurl('/banner-home', $param));
-        $data['news-home'] = json_decode(HelperService::myCurl('/news-home', $param));
-        $data['services-home'] = json_decode(HelperService::myCurl('/services-home', $param));
-        $data['projects-home'] = json_decode(HelperService::myCurl('/projects-home', $param));
-        $data['aboutus-home'] = json_decode(HelperService::myCurl('/aboutus-home', $param));
-        $data['others-home'] = json_decode(HelperService::myCurl('/others-home', $param));
-        
+        $data['banner'] = json_decode(HelperService::myCurl('/banner-home', $param));
+        $data['news'] = json_decode(HelperService::myCurl('/news-home', $param));
+        $data['services'] = json_decode(HelperService::myCurl('/services-home', $param));
+        $data['projects'] = json_decode(HelperService::myCurl('/projects-home', $param));
+        $data['aboutus'] = json_decode(HelperService::myCurl('/aboutus-home', $param));
+        $data['others'] = json_decode(HelperService::myCurl('/others-home', $param));
+        $data['projects_category'] = json_decode(HelperService::myCurl('/projects-category', $param));
+
         return view('Frontend.Home', $data);
     }
 
@@ -63,5 +64,19 @@ class Main extends Controller
         $data = [];
         $data['menu'] = "contact";
         return view('Frontend.Contact', $data);
+    }
+
+
+    public function newsDetail($value)
+    {
+        $data = [];
+        $data['menu'] = "news";
+
+        $param = [
+            "id" => $value
+        ];
+
+        $data['news'] = json_decode(HelperService::myCurl('/news-detail', $param));
+        return view('Frontend.NewsDetail', $data);
     }
 }
