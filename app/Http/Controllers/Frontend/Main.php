@@ -35,6 +35,12 @@ class Main extends Controller
     {
         $data = [];
         $data['menu'] = "about";
+
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['aboutus'] = json_decode(HelperService::myCurl('/aboutus', $param));
         return view('Frontend.About', $data);
     }
 
@@ -49,6 +55,11 @@ class Main extends Controller
     {
         $data = [];
         $data['menu'] = "services";
+        $param = [
+            "id" => $request->has('id') ? $request->get('id') : ""
+        ];
+
+        $data['sevices'] = json_decode(HelperService::myCurl('/news-detail', $param));
         return view('Frontend.Services', $data);
     }
 
@@ -56,13 +67,36 @@ class Main extends Controller
     {
         $data = [];
         $data['menu'] = "news";
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['category'] = json_decode(HelperService::myCurl('/category-news', $param));
+        $data['tags'] = json_decode(HelperService::myCurl('/tags-news', $param));
         return view('Frontend.News', $data);
+    }
+
+
+    public function newsListData(Request $request)
+    {
+        $param = [
+            "page" => $request->post('page', 1), // Default to page 1 if not provided
+            "per_page" => $request->post('per_page', 2) // Default to 10 items per page if not provided
+        ];
+
+        $data = json_decode(HelperService::myCurl('/news', $param));
+        return response()->json($data);
     }
 
     public function contact(Request $request)
     {
         $data = [];
         $data['menu'] = "contact";
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['contact'] = json_decode(HelperService::myCurl('/contact', $param));
         return view('Frontend.Contact', $data);
     }
 

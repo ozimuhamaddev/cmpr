@@ -18,8 +18,11 @@ Route::get('/about', '\App\Http\Controllers\Frontend\Main@about');
 Route::get('/projects', '\App\Http\Controllers\Frontend\Main@projects');
 Route::get('/services', '\App\Http\Controllers\Frontend\Main@services');
 Route::get('/news', '\App\Http\Controllers\Frontend\Main@news');
-Route::get('/news/{value}', [\App\Http\Controllers\Frontend\Main::class, 'newsDetail']);
 Route::get('/contact', '\App\Http\Controllers\Frontend\Main@newsDetail');
+Route::post('/news-list-data', '\App\Http\Controllers\Frontend\Main@newsListData');
+Route::get('/news/{value}', [\App\Http\Controllers\Frontend\Main::class, 'newsDetail']);
+
+
 $router->group(['prefix' => 'admin-page'], function () use ($router) {
     $router->get('/', '\App\Http\Controllers\Admin\Login@index');
     $router->get('/home', '\App\Http\Controllers\Admin\Home@index');
