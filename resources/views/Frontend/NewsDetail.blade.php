@@ -37,9 +37,8 @@
                                 @php
                                 $tags = explode(',',$news->data->getDetail->tag);
                                 @endphp
-                                @for($a = 0; $a < count($tags); $a++)
-                                <a>{{$tags[$a]}}</a>
-                                @endfor
+                                @for($a = 0; $a < count($tags); $a++) <a>{{$tags[$a]}}</a>
+                                    @endfor
                             </div>
                             <div class="share-items">
                                 <ul class="post-social-icons list-unstyled">
@@ -78,7 +77,7 @@
 
                     </div><!-- Recent post end -->
 
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h3 class="widget-title">Categories</h3>
                         <ul class="arrow nav nav-tabs">
                             <li><a href="#">Construction</a></li>
@@ -87,7 +86,8 @@
                             <li><a href="#">Safety</a></li>
                             <li><a href="#">Structure</a></li>
                         </ul>
-                    </div><!-- Categories end -->
+                    </div> -->
+                    <!-- Categories end -->
 
                     <!-- <div class="widget">
                         <h3 class="widget-title">Archives </h3>
@@ -101,20 +101,15 @@
                     </div> -->
                     <!-- Archives end -->
 
-                    <!-- <div class="widget widget-tags">
+                    <div class="widget widget-tags">
                         <h3 class="widget-title">Tags </h3>
 
                         <ul class="list-unstyled">
-                            <li><a href="#">Construction</a></li>
-                            <li><a href="#">Design</a></li>
-                            <li><a href="#">Project</a></li>
-                            <li><a href="#">Building</a></li>
-                            <li><a href="#">Finance</a></li>
-                            <li><a href="#">Safety</a></li>
-                            <li><a href="#">Contracting</a></li>
-                            <li><a href="#">Planning</a></li>
+                            @for($a = 0; $a < count($news->data->getTag); $a++)
+                                <li><a>{{$news->data->getTag[$a]->tag}}</a></li>
+                                @endfor
                         </ul>
-                    </div> -->
+                    </div>
                     <!-- Tags end -->
 
 
