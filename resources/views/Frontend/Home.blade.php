@@ -6,7 +6,7 @@
 
 
     @for($a = 0; $a < count($banner->data); $a++)
-        <div class="banner-carousel-item" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/slider-main/bg1.png') }})">
+        <div class="banner-carousel-item" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/slider-main/'.$banner->data[$a]->image) }})">
             <div class="slider-content">
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
@@ -99,7 +99,7 @@
                             <div class="ts-service-info">
                                 <h3 class="service-box-title"><a href="service-single.html">{{$services->data[$a]->title}}</a></h3>
                                 <p>{{$services->data[$a]->short_description}}</p>
-                                <a class="learn-more d-inline-block" href="{{ asset(env('APP_URL').'/news/'.$services->data[$a]->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
+                                <a class="learn-more d-inline-block" href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                             </div>
                         </div>
                     </div><!-- Service1 end -->

@@ -69,12 +69,13 @@
     $(document).ready(function() {
         function loadNews(page) {
             $.ajax({
-                url: "{{ asset(env('APP_URL')) }}/news-list-data",
+                url: "{{ asset(env('APP_URL')) }}/news-tags-list-data",
                 type: "POST",
                 contentType: "application/json",
                 dataType: "json",
                 data: JSON.stringify({
                     _token: "<?= csrf_token() ?>",
+                    id: "<?= $id ?>",
                     page: page
                 }),
                 success: function(response) {

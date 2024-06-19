@@ -12,6 +12,7 @@ use Session;
 
 class Main extends Controller
 {
+    public $perPage = 8;
     public function index(Request $request)
     {
         $data = [];
@@ -48,6 +49,11 @@ class Main extends Controller
     {
         $data = [];
         $data['menu'] = "projects";
+        $param = [
+            "token" => session('token')
+        ];
+        $data['projects'] = json_decode(HelperService::myCurl('/projects', $param));
+        $data['projects_category'] = json_decode(HelperService::myCurl('/projects-category', $param));
         return view('Frontend.Projects', $data);
     }
 
@@ -56,11 +62,24 @@ class Main extends Controller
         $data = [];
         $data['menu'] = "services";
         $param = [
-            "id" => $request->has('id') ? $request->get('id') : ""
+            "token" => session('token')
         ];
 
-        $data['sevices'] = json_decode(HelperService::myCurl('/news-detail', $param));
+        $data['services'] = json_decode(HelperService::myCurl('/services', $param));
         return view('Frontend.Services', $data);
+    }
+
+    public function servicesDetail($value)
+    {
+        $data = [];
+        $data['menu'] = "news";
+
+        $param = [
+            "id" => $value
+        ];
+
+        $data['services'] = json_decode(HelperService::myCurl('/services-detail', $param));
+        return view('Frontend.ServicesDetail', $data);
     }
 
     public function news(Request $request)
@@ -76,12 +95,11 @@ class Main extends Controller
         return view('Frontend.News', $data);
     }
 
-
     public function newsListData(Request $request)
     {
         $param = [
             "page" => $request->post('page', 1), // Default to page 1 if not provided
-            "per_page" => $request->post('per_page', 2) // Default to 10 items per page if not provided
+            "per_page" => $request->post('per_page', $this->perPage) // Default to 10 items per page if not provided
         ];
 
         $data = json_decode(HelperService::myCurl('/news', $param));
@@ -112,5 +130,58 @@ class Main extends Controller
 
         $data['news'] = json_decode(HelperService::myCurl('/news-detail', $param));
         return view('Frontend.NewsDetail', $data);
+    }
+
+    public function newsTags($values)
+    {
+        $data = [];
+        $data['menu'] = "news";
+        $data['id'] = $values;
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['category'] = json_decode(HelperService::myCurl('/category-news', $param));
+        $data['tags'] = json_decode(HelperService::myCurl('/tags-news', $param));
+        return view('Frontend.NewsTags', $data);
+    }
+
+    public function newsTagsListdata(Request $request)
+    {
+        $param = [
+            "id" => urldecode($request->post('id')),
+            "page" => $request->post('page', 1), // Default to page 1 if not provided
+            "per_page" => $request->post('per_page', $this->perPage) // Default to 10 items per page if not provided
+        ];
+
+        $data = json_decode(HelperService::myCurl('/news-tags', $param));
+        return response()->json($data);
+    }
+
+    public function newsCategory($values)
+    {
+        $data = [];
+        $data['menu'] = "news";
+
+        $data['id'] = $values;
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['category'] = json_decode(HelperService::myCurl('/category-news', $param));
+        $data['tags'] = json_decode(HelperService::myCurl('/tags-news', $param));
+        return view('Frontend.NewsCategory', $data);
+    }
+
+    public function newsCategoryListData(Request $request)
+    {
+        $param = [
+            "id" => $request->post('id'),
+            "page" => $request->post('page', 1), // Default to page 1 if not provided
+            "per_page" => $request->post('per_page', $this->perPage) // Default to 10 items per page if not provided
+        ];
+
+        $data = json_decode(HelperService::myCurl('/news-category', $param));
+        return response()->json($data);
     }
 }

@@ -7,11 +7,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="banner-heading">
-                        <h1 class="banner-title">About Us</h1>
+                        <h1 class="banner-title">Services</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb justify-content-center">
                                 <li class="breadcrumb-item"><a href="{{ asset(env('APP_URL')) }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ asset(env('APP_URL').'/about') }}">About Us</a></li>
+                                <li class="breadcrumb-item"><a href="{{ asset(env('APP_URL').'/services') }}">Services</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -24,15 +24,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="column-title">{{$aboutus->data->title}}</h3>
-                {{$aboutus->data->description}}
+                <h3 class="column-title">{{$services->data->title}}</h3>
+                {{$services->data->description}}
             </div><!-- Col end -->
 
             <div class="col-lg-6 mt-5 mt-lg-0">
 
                 <div id="page-slider" class="page-slider small-bg">
 
-                    <div class="item" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/slider-pages/'.$aboutus->data->image) }})">
+                    <div class="item" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/services/'.$services->data->image) }})">
                         <!-- <div class="container">
                             <div class="box-slider-content">
                                 <div class="box-slider-text">

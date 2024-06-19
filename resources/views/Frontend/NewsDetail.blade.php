@@ -110,7 +110,7 @@
                         <h3 class="widget-title">Categories</h3>
                         <ul class="arrow nav nav-tabs">
                             @for($a = 0; $a < count($news->data->getCategory); $a++)
-                                <li><a href="{{ url('news/category/'.urlencode($news->data->getCategory[$a]->category_name)) }}">{{ucwords($news->data->getCategory[$a]->category_name)}}</a></li>
+                                <li><a href="{{ url('news/category/'.urlencode($news->data->getCategory[$a]->id)) }}">{{ucwords($news->data->getCategory[$a]->category_name)}}</a></li>
                                 @endfor
                         </ul>
                     </div>
