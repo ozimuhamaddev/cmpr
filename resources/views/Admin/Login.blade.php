@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Pages / Login - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
@@ -53,13 +54,19 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <img style="max-width: 50%;margin-left:80px" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo2.png') }}" alt="PT Cakrawala Synergy Perkasa">
+                    <img style="max-width: 50%;margin-left:90px" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo2.png') }}" alt="PT Cakrawala Synergy Perkasa">
                     <h5 class="card-title text-center pb-0 fs-4">Dashboard Admin</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" id="formInput" type="POST" novalidate>
 
                     <div class="col-12">
+                      <div class="alert alert-danger" role="alert" id='failed-alert' style="display: none;">
+                        Login failed, username and password not match
+                      </div>
+                      <div class="alert alert-success" role="alert" id='success-alert' style="display: none;">
+                        Login success
+                      </div>
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -74,12 +81,12 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
@@ -111,7 +118,64 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/js/main.js') }}"></script>
+  <!-- initialize jQuery Library -->
+  <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/plugins/jQuery/jquery.min.js') }}"></script>
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+  $(document).on("submit", "#formInput", function(event) {
+    $('.loading').show();
+    //stop submit the form, we will post it manually.
+    event.preventDefault();
+    // Get form
+    var form = $('#formInput')[0];
+    // Create an FormData object
+    var data = new FormData(form);
+    // If you want to add an extra field for the FormData
+    data.append("CustomField", "This is some extra data, testing");
+    // disabled the submit button
+    $("#btnSubmit").prop("disabled", true);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: "POST",
+      async: true,
+      dataType: "json",
+      enctype: 'multipart/form-data',
+      url: "{{ URL::asset(env('APP_URL').'/admin-page/do-login') }}",
+      data: data,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function(data) {
+        $('.loading').hide();
+        if (data.response_code == '200') {
+          $("#success-alert").show(); // use slide down for animation
+          setTimeout(function() {
+            $("#success-alert").slideUp(500);
+            window.location.href = "{{ URL::asset(env('APP_URL').'/admin-page/home') }}";
+          }, 2500);
+        } else {
+          $("#failed-alert").show(); // use slide down for animation
+          setTimeout(function() {
+            $("#failed-alert").slideUp(500);
+          }, 2500);
+        }
+      },
+      error: function(e) {
+        $("#result").text(e.responseText);
+        console.log("ERROR : ", e);
+        $("#btnSubmit").prop("disabled", false);
+      }
+    });
+    event.stopImmediatePropagation();
+    return false;
+  });
+</script>

@@ -29,6 +29,11 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/css/style.css') }}" rel="stylesheet">
 </head>
+<style>
+    .dataTables_filter {
+        display: none
+    }
+</style>
 
 <body>
 
@@ -42,11 +47,38 @@
     <!-- Content start -->
     @yield('Content')
     <!--/ Content end -->
-
+    <div class="modal fade" id="modalAction" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" id="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your modal body content here -->
+                    <div style="text-align: center; padding: 0 15px;">
+                        <h2>
+                            <div class="spinner"></div><span>Loading...</span>
+                        </h2>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
     <!-- Footer start -->
     @include('Admin/Layout.Footer')
     <!--/ Footer end -->
 
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Load DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
@@ -55,12 +87,16 @@
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/chart.js/chart.umd.js') }}"></script>
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/echarts/echarts.min.js') }}"></script>
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/quill/quill.js') }}"></script>
-    <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <!-- <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/simple-datatables/simple-datatables.js') }}"></script> -->
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/js/main.js') }}"></script>
+
+    <!-- Content start -->
+    @yield('Scripts')
+    <!--/ Content end -->
 
 </body>
 

@@ -28,11 +28,20 @@ Route::post('/news-category-list-data', '\App\Http\Controllers\Frontend\Main@new
 Route::post('/news-tags-list-data', '\App\Http\Controllers\Frontend\Main@newsTagsListdata');
 
 $router->group(['prefix' => 'admin-page'], function () use ($router) {
-    $router->get('/', '\App\Http\Controllers\Admin\Login@index');
-    $router->get('/home', '\App\Http\Controllers\Admin\Home@index');
-    $router->get('/about', '\App\Http\Controllers\Admin\Home@about');
-    $router->get('/projects', '\App\Http\Controllers\Admin\Home@projects');
-    $router->get('/services', '\App\Http\Controllers\Admin\Home@services');
-    $router->get('/news', '\App\Http\Controllers\Admin\Home@news');
-    $router->get('/contact', '\App\Http\Controllers\Admin\Home@contact');
+    $router->get('/', '\App\Http\Controllers\Admin\AuthController@index');
+    $router->get('/logout', '\App\Http\Controllers\Admin\AuthController@Logout');
+    $router->post('/do-login', '\App\Http\Controllers\Admin\AuthController@DoLogin');
+
+    Route::middleware(['check.session'])->group(function () use ($router) {
+        $router->get('/home', '\App\Http\Controllers\Admin\Home@index');
+        $router->get('/about', '\App\Http\Controllers\Admin\Home@about');
+        $router->get('/projects', '\App\Http\Controllers\Admin\Home@projects');
+        $router->get('/services', '\App\Http\Controllers\Admin\Home@services');
+        $router->get('/news', '\App\Http\Controllers\Admin\Home@news');
+        $router->get('/contact', '\App\Http\Controllers\Admin\Home@contact');
+        $router->post('/home/listdata', '\App\Http\Controllers\Admin\Home@listdata');
+        $router->get('/home/do-status', '\App\Http\Controllers\Admin\Home@doStatus');
+        $router->get('/home/update-static', '\App\Http\Controllers\Admin\Home@updateStatic');
+
+    });
 });

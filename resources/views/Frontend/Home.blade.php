@@ -48,26 +48,25 @@
     <div class="container">
         <div class="row">
             @for($a = 0; $a < count($others->data); $a++)
-                @if($others->data[$a]->others_category_id == 2)
+                @if($others->data[$a]->menu_id == 2)
                 <div class="col-lg-6">
                     <div class="ts-intro">
                         <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
                         {{$others->data[$a]->short_description}}
                     </div><!-- Intro box end -->
                 </div><!-- Col end -->
-
                 @endif
                 @endfor
                 <div class="col-lg-6 mt-4 mt-lg-0">
 
                     @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->others_category_id == 3)
+                        @if($others->data[$a]->menu_id == 3)
                         <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
                         {{$others->data[$a]->short_description}}
                         @endif
                         @endfor
                         @for($a = 0; $a < count($others->data); $a++)
-                            @if($others->data[$a]->others_category_id == 4)
+                            @if($others->data[$a]->menu_id == 4)
                             <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
                             {{$others->data[$a]->short_description}}
                             @endif
@@ -114,7 +113,7 @@
         <div class="facts-wrapper">
             <div class="row">
                 @for($a = 0; $a < count($others->data); $a++)
-                    @if($others->data[$a]->others_category_id == 1)
+                    @if($others->data[$a]->menu_id == 1)
                     <div class="col-md-3 col-sm-6 ts-facts">
                         <div class="ts-facts-img">
                             <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$others->data[$a]->icon_image) }}" alt="{{$others->data[$a]->icon_image}}">
@@ -148,7 +147,7 @@
             @endphp
 
             @foreach($others->data as $key => $item)
-            @if($item->others_category_id == 5)
+            @if($item->menu_id == 5)
             @if($count % 3 == 0) <!-- Membuka div baru setiap 3 iterasi -->
             <div class="col-lg-4">
                 @endif
@@ -252,7 +251,7 @@
                 <h3 class="column-title">Testimonials</h3>
                 <div id="testimonial-slide" class="testimonial-slide">
                     @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->others_category_id == 6)
+                        @if($others->data[$a]->menu_id == 6)
                         <div class="item">
                             <div class="quote-item">
                                 <span class="quote-text">
@@ -280,7 +279,7 @@
 
                 <div class="row all-clients">
                     @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->others_category_id == 7)
+                        @if($others->data[$a]->menu_id == 7)
                         <div class="col-sm-4 col-6">
                             <figure class="clients-logo">
                                 <a href="#!"><img loading="lazy" class="img-fluid" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$others->data[$a]->image) }}" alt="{{$others->data[$a]->image_ori}}" /></a>
