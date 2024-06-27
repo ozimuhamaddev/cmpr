@@ -41,13 +41,13 @@
     <div class="body-inner">
         <!--/ Topbar end -->
         <!-- Header start -->
-        @include('Frontend/Layout.Navigation')
+        @include('Frontend/Layout.Navigation', ['menu' => App\Http\Controllers\Frontend\Main::getNavigatorData(request())])
         <!--/ Header end -->
         <!-- Content start -->
         @yield('Content')
         <!--/ Content end -->
         <!-- Footer  -->
-        @include('Frontend/Layout.Footer')
+        @include('Frontend/Layout.Footer', ['data' => App\Http\Controllers\Frontend\Main::getFooterData(request())])
         <!-- Footer end -->
         <!-- Javascript Files
   ================================================== -->

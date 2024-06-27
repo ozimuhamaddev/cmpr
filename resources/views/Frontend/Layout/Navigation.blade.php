@@ -10,44 +10,10 @@
 
                         <div id="navbar-collapse" class="collapse navbar-collapse">
                             <ul class="nav navbar-nav mr-auto">
-                                @php
-                                $home ="";
-                                $about ="";
-                                $projects ="";
-                                $services ="";
-                                $news ="";
-                                $contact ="";
+                                @foreach ($menu as $item)
+                                <li class="nav-item {{ $item['active'] }}"><a class="nav-link" href="{{ $item['url'] }}">{{ $item['name'] }}</a></li>
+                                @endforeach
 
-                                if($menu =="home"){
-                                $home ="active";
-                                }
-
-                                if($menu =="about"){
-                                $about ="active";
-                                }
-
-                                if($menu =="projects"){
-                                $projects ="active";
-                                }
-
-                                if($menu =="services"){
-                                $services ="active";
-                                }
-
-                                if($menu =="news"){
-                                $news ="active";
-                                }
-
-                                if($menu =="contact"){
-                                $contact ="active";
-                                }
-                                @endphp
-                                <li class="nav-item {{$home}}"><a class="nav-link" href="{{ asset(env('APP_URL')) }}">Home</a></li>
-                                <li class="nav-item {{$about}}"><a class="nav-link" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/about') }}">About Us</a></li>
-                                <li class="nav-item {{$projects}}"><a class="nav-link" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/projects') }}">Projects</a></li>
-                                <li class="nav-item {{$services}}"><a class="nav-link" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/services') }}">Services</a></li>
-                                <li class="nav-item {{$news}}"><a class="nav-link" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/news') }}">News</a></li>
-                                <li class="nav-item {{$contact}}"><a class="nav-link" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>

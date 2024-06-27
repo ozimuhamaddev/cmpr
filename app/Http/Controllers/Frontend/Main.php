@@ -28,6 +28,7 @@ class Main extends Controller
         $data['aboutus'] = json_decode(HelperService::myCurl('/aboutus-home', $param));
         $data['others'] = json_decode(HelperService::myCurl('/others-home', $param));
         $data['projects_category'] = json_decode(HelperService::myCurl('/projects-category', $param));
+        $data['menu'] = json_decode(HelperService::myCurl('/menu', $param));
 
         return view('Frontend.Home', $data);
     }
@@ -183,5 +184,89 @@ class Main extends Controller
 
         $data = json_decode(HelperService::myCurl('/news-category', $param));
         return response()->json($data);
+    }
+
+    public function getNavigatorData(Request $request)
+    {
+        $param = [
+            "token" => session('token')
+        ];
+
+        $menuResponse = json_decode(HelperService::myCurl('/menu', $param), true);
+
+        // Initialize segments
+        $segments = [
+            'home' => '',
+            'about' => '',
+            'projects' => '',
+            'services' => '',
+            'news' => '',
+            'contact' => '',
+        ];
+
+        // Check if the first segment is empty, set 'home' as active
+        if ($request->segment(1) == "" || $request->segment(1) == null) {
+            $segments['home'] = 'active';
+        } else if (array_key_exists($request->segment(1), $segments)) {
+            $segments[$request->segment(1)] = 'active';
+        }
+
+        // Default data array
+        $data = [
+            ['active' => $segments['home'], 'name' => 'Home', 'url' => env('APP_URL')],
+        ];
+
+        // Check if additional menu items should be added
+        foreach ($menuResponse['data'] as $menuItem) {
+            switch ($menuItem['menu_id']) {
+                case 13:
+                    if ($menuItem['active'] == 'Y') {
+                        $data[] = ['active' => $segments['services'], 'name' => 'Services', 'url' => env('APP_URL') . '/services'];
+                    }
+                    break;
+
+                case 12:
+                    if ($menuItem['active'] == 'Y') {
+                        $data[] = ['active' => $segments['projects'], 'name' => 'Projects', 'url' => env('APP_URL') . '/projects'];
+                    }
+                    break;
+
+                case 11:
+                    if ($menuItem['active'] == 'Y') {
+                        $data[] = ['active' => $segments['news'], 'name' => 'News', 'url' => env('APP_URL') . '/news'];
+                    }
+                    break;
+
+                case 10:
+                    if ($menuItem['active'] == 'Y') {
+                        $data[] = ['active' => $segments['contact'], 'name' => 'Contact', 'url' => env('APP_URL') . '/contact'];
+                    }
+                    break;
+
+                case 8:
+                    if ($menuItem['active'] == 'Y') {
+                        $data[] = ['active' => $segments['about'], 'name' => 'About Us', 'url' => env('APP_URL') . '/about'];
+                    }
+                    break;
+            }
+        }
+
+        return $data;
+    }
+
+
+    public function getFooterData(Request $request)
+    {
+        $data = [];
+        $param = [
+            "token" => session('token')
+        ];
+
+        $data['menu'] = json_decode(HelperService::myCurl('/menu', $param));
+        $data['services'] = json_decode(HelperService::myCurl('/services-home', $param));
+        $data['aboutus'] = json_decode(HelperService::myCurl('/aboutus-home', $param));
+        $data['others'] = json_decode(HelperService::myCurl('/others-home', $param));
+
+        return $data;
     }
 }

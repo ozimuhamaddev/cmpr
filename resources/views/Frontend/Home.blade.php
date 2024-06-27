@@ -49,30 +49,11 @@
         <div class="row">
             @for($a = 0; $a < count($others->data); $a++)
                 @if($others->data[$a]->menu_id == 2)
-                <div class="col-lg-6">
-                    <div class="ts-intro">
-                        <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
-                        {{$others->data[$a]->short_description}}
-                    </div><!-- Intro box end -->
-                </div><!-- Col end -->
+                <div class="ts-intro">
+                    {!!$others->data[$a]->short_description!!}
+                </div><!-- Intro box end -->
                 @endif
                 @endfor
-                <div class="col-lg-6 mt-4 mt-lg-0">
-
-                    @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->menu_id == 3)
-                        <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
-                        {{$others->data[$a]->short_description}}
-                        @endif
-                        @endfor
-                        @for($a = 0; $a < count($others->data); $a++)
-                            @if($others->data[$a]->menu_id == 4)
-                            <h3 class="into-sub-title">{{$others->data[$a]->title}}</h3>
-                            {{$others->data[$a]->short_description}}
-                            @endif
-                            @endfor
-
-                </div><!-- Col end -->
         </div><!-- Row end -->
     </div><!-- Container end -->
 </section><!-- Feature are end -->
@@ -108,6 +89,8 @@
     </div><!-- Container end -->
 </section><!-- Feature are end -->
 
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 1 && $menuItem->active == 'Y')
 <section id="facts" class="facts-area dark-bg">
     <div class="container">
         <div class="facts-wrapper">
@@ -119,7 +102,7 @@
                             <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$others->data[$a]->icon_image) }}" alt="{{$others->data[$a]->icon_image}}">
                         </div>
                         <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="{{$others->data[$a]->short_description}}">0</span></h2>
+                            <h2 class="ts-facts-num"><span class="counterUp" data-count="{!!$others->data[$a]->short_description!!}">0</span></h2>
                             <h3 class="ts-facts-title">{{$others->data[$a]->title}}</h3>
                         </div>
                     </div><!-- Col end -->
@@ -131,13 +114,18 @@
     </div>
     <!--/ Container end -->
 </section><!-- Facts end -->
+@endif
+@endforeach
 
+
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 5 && $menuItem->active == 'Y')
 <section id="ts-service-area" class="ts-service-area pb-0">
     <div class="container">
         <div class="row text-center">
             <div class="col-12">
                 <!-- <h2 class="section-title">We Are Specialists In</h2> -->
-                <h3 class="section-sub-title">What We Do</h3>
+                <h3 class="section-sub-title">{{$menuItem->menu_name}}</h3>
             </div>
         </div>
         <!--/ Title row end -->
@@ -184,13 +172,18 @@
     </div>
     <!--/ Container end -->
 </section><!-- Service end -->
+@endif
+@endforeach
 
+
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 12 && $menuItem->active == 'Y')
 <section id="project-area" class="project-area solid-bg">
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-12">
                 <!-- <h2 class="section-title">Work of Excellence</h2> -->
-                <h3 class="section-sub-title">Recent Projects</h3>
+                <h3 class="section-sub-title">{{$menuItem->menu_name}}</h3>
             </div>
         </div>
         <!--/ Title row end -->
@@ -243,59 +236,80 @@
     </div>
     <!--/ Container end -->
 </section><!-- Project area end -->
+@endif
+@endforeach
+
 
 <section class="content">
     <div class="container">
         <div class="row">
+            @php $menu6Found = false; @endphp
+            @foreach($menu->data as $menuItem)
+            @if($menuItem->menu_id == 6 && $menuItem->active == 'Y')
             <div class="col-lg-6">
-                <h3 class="column-title">Testimonials</h3>
+                <h3 class="column-title">{{$menuItem->menu_name}}</h3>
                 <div id="testimonial-slide" class="testimonial-slide">
-                    @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->menu_id == 6)
-                        <div class="item">
-                            <div class="quote-item">
-                                <span class="quote-text">
-                                    {{$others->data[$a]->description}}
-                                </span>
-
-                                <div class="quote-item-footer">
-                                    <img loading="lazy" class="testimonial-thumb" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$others->data[$a]->image) }}" alt="{{$others->data[$a]->image_ori}}">
-                                    <div class="quote-item-info">
-                                        <h3 class="quote-author">{{$others->data[$a]->title}}</h3>
-                                        <span class="quote-subtext">{{$others->data[$a]->short_description}}</span>
-                                    </div>
+                    @php $menu6Found = true; @endphp
+                    @foreach($others->data as $other)
+                    @if($other->menu_id == 6)
+                    <div class="item">
+                        <div class="quote-item">
+                            <span class="quote-text">
+                                {{$other->description}}
+                            </span>
+                            <div class="quote-item-footer">
+                                <img loading="lazy" class="testimonial-thumb" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$other->image) }}" alt="{{$other->image_ori}}">
+                                <div class="quote-item-info">
+                                    <h3 class="quote-author">{{$other->title}}</h3>
+                                    <span class="quote-subtext">{!!$other->short_description!!}</span>
                                 </div>
-                            </div><!-- Quote item end -->
-                        </div>
-                        @endif
-                        @endfor
-                </div>
-                <!--/ Testimonial carousel end-->
+                            </div>
+                        </div><!-- Quote item end -->
+                    </div>
+                    @endif
+                    @endforeach
+                </div><!-- Testimonial carousel end -->
             </div><!-- Col end -->
+            @endif
+            @endforeach
 
-            <div class="col-lg-6 mt-5 mt-lg-0">
+            @if(!$menu6Found)
+            <div class="col-lg-12">
+                @endif
 
-                <h3 class="column-title">Happy Clients</h3>
+                @foreach($menu->data as $menuItem)
+                @if($menuItem->menu_id == 7 && $menuItem->active == 'Y')
+                @if(!$menu6Found)
+                <div class="col-lg-12">
+                @else
+                <div class="col-lg-6">
+                @endif
 
-                <div class="row all-clients">
-                    @for($a = 0; $a < count($others->data); $a++)
-                        @if($others->data[$a]->menu_id == 7)
+                    <h3 class="column-title">{{$menuItem->menu_name}}</h3>
+                    <div class="row all-clients">
+                        @foreach($others->data as $other)
+                        @if($other->menu_id == 7)
                         <div class="col-sm-4 col-6">
                             <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$others->data[$a]->image) }}" alt="{{$others->data[$a]->image_ori}}" /></a>
+                                <a href="#!"><img loading="lazy" class="img-fluid" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$other->image) }}" alt="{{$other->image_ori}}" /></a>
                             </figure>
-                        </div><!-- Client 1 end -->
+                        </div><!-- Client end -->
                         @endif
-                        @endfor
-                </div><!-- Clients row end -->
+                        @endforeach
+                    </div><!-- Clients row end -->
+                </div><!-- Col end -->
+                @endif
+                @endforeach
 
+                @if(!$menu6Found)
             </div><!-- Col end -->
+            @endif
 
-        </div>
-        <!--/ Content row end -->
-    </div>
-    <!--/ Container end -->
+        </div><!-- Row end -->
+    </div><!-- Container end -->
 </section><!-- Content end -->
+
+
 
 <section class="subscribe no-padding">
     <div class="container">
@@ -331,11 +345,13 @@
 </section>
 <!--/ subscribe end -->
 
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 11 && $menuItem->active == 'Y')
 <section id="news" class="news">
     <div class="container">
         <div class="row text-center">
             <div class="col-12">
-                <h3 class="section-sub-title">Newsletter</h3>
+                <h3 class="section-sub-title">{{$menuItem->menu_name}}</h3>
             </div>
         </div>
         <!--/ Title row end -->
@@ -372,5 +388,7 @@
     </div>
     <!--/ Container end -->
 </section>
+@endif
+@endforeach
 <!--/ News end -->
 @endsection
