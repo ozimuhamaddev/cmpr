@@ -20,7 +20,7 @@
                     </span>
                     <div class="ts-service-box-content">
                         <h4>Visit Our Office</h4>
-                        <p>{{$contact->data->address}}</p>
+                        <p>{!!$contact->data->address!!}</p>
                     </div>
                 </div>
             </div><!-- Col 1 end -->

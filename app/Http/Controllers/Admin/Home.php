@@ -50,7 +50,7 @@ class Home extends Controller
                 if ($rows->data[$i]->link != "") {
                     $nestedData['link'] = '<a href="' . env('APP_URL') . '/admin-page/' . $rows->data[$i]->link . '"  type="button" class="btn btn-primary btn-sm">redirect menu</a>';
                 } else {
-                    $nestedData['link'] = '<a type="button" class="btn btn-danger btn-sm" dataaction="update" dataid="' . $rows->data[$i]->menu_name . '" onclick="getaction(this)">edit content</a>';
+                    $nestedData['link'] = '<a type="button" class="btn btn-danger btn-sm" dataaction="update" dataid="' . $rows->data[$i]->id . '|' . $rows->data[$i]->menu_name . '" onclick="getaction(this)">edit content</a>';
                 }
                 $menu_access = '';
                 if ($rows->data[$i]->active != "Y") {
@@ -91,9 +91,32 @@ class Home extends Controller
     public function updateStatic(Request $request)
     {
         $data['menu'] = "home";
-        $data['title'] = "Update Menu " . ucWords($request->id);
-        return view('Admin.Update', $data);
+        $data['title'] = "Update " . ucWords($request->menu_name);
+        $data['id'] = $request->id;
+
+        $param = [
+            'id' =>  $request->id,
+        ];
+
+        $data['data'] =  json_decode(HelperService::myCurlToken('/admin/static', $param));
+
+        return view('Admin.Form.Text', $data);
     }
+
+
+    public function doAddStatic(Request $request)
+    {
+        $param = [
+            'description' =>  $request->post('description'),
+            'id' =>  $request->post('id'),
+        ];
+        $rows =  json_decode(HelperService::myCurlToken('/admin/do-add-static', $param));
+
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+        return json_encode($data);
+    }
+
 
     public function doStatus(Request $request)
     {
@@ -105,8 +128,6 @@ class Home extends Controller
         json_decode(HelperService::myCurlToken('/admin/do-status-menu', $param));
         return true;
     }
-
-
 
     public function about(Request $request)
     {
@@ -141,5 +162,28 @@ class Home extends Controller
         $data = [];
         $data['menu'] = "contact";
         return view('Admin.Page.Contact', $data);
+    }
+
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            try {
+                $file = $request->file('file');
+                $fileName = 'upload_' . time() . '.' . $file->getClientOriginalExtension();
+
+                // Simpan gambar ke direktori public/uploads
+                $file->storeAs('public/uploads', $fileName);
+
+                // URL gambar yang dapat diakses publik
+                $imageUrl = asset('storage/uploads/' . $fileName);
+
+                return response()->json(['imageUrl' => $imageUrl]);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
     }
 }

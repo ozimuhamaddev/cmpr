@@ -30,24 +30,7 @@
       </div>
       <label for="formFile" class="form-label">Description</label>
       <textarea class="tinymce-seditor">
-        <section id="ts-features" class="ts-features">
-            <div class="container">
-                <div class="row">
-                  <div class="col-lg-6">
-                      <div class="ts-intro">
-                          <h3 class="into-sub-title">sacasasdsad</h3>
-                          sacasasdsad
-                      </div><!-- Intro box end -->
-                  </div><!-- Col end -->
-                  <div class="col-lg-6">
-                      <div class="ts-intro">
-                          <h3 class="into-sub-title">sacasasdsad</h3>
-                          sacasasdsad
-                      </div><!-- Intro box end -->
-                  </div><!-- Col end -->
-                </div><!-- Row end -->
-            </div><!-- Container end -->
-        </section><!-- Feature are end -->
+      {!!$data->data->description!!}
       </textarea>
       <!-- End TinyMCE Editor -->
     </div>

@@ -50,7 +50,7 @@
             @for($a = 0; $a < count($others->data); $a++)
                 @if($others->data[$a]->menu_id == 2)
                 <div class="ts-intro">
-                    {!!$others->data[$a]->short_description!!}
+                    {!!$others->data[$a]->description!!}
                 </div><!-- Intro box end -->
                 @endif
                 @endfor
@@ -58,6 +58,8 @@
     </div><!-- Container end -->
 </section><!-- Feature are end -->
 
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 13 && $menuItem->active == 'Y')
 <section id="ts-features" class="project-area solid-bg">
     <div class="container">
         <div class="row text-center">
@@ -88,6 +90,8 @@
         </div><!-- Content row end -->
     </div><!-- Container end -->
 </section><!-- Feature are end -->
+@endif
+@endforeach
 
 @foreach($menu->data as $menuItem)
 @if($menuItem->menu_id == 1 && $menuItem->active == 'Y')

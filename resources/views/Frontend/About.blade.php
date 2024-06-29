@@ -24,8 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="column-title">{{$aboutus->data->title}}</h3>
-                {{$aboutus->data->description}}
+                {!!$aboutus->data->description!!}
             </div><!-- Col end -->
 
             <div class="col-lg-6 mt-5 mt-lg-0">

@@ -34,14 +34,26 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
 
     Route::middleware(['check.session'])->group(function () use ($router) {
         $router->get('/home', '\App\Http\Controllers\Admin\Home@index');
-        $router->get('/about', '\App\Http\Controllers\Admin\Home@about');
         $router->get('/projects', '\App\Http\Controllers\Admin\Home@projects');
         $router->get('/services', '\App\Http\Controllers\Admin\Home@services');
-        $router->get('/news', '\App\Http\Controllers\Admin\Home@news');
         $router->get('/contact', '\App\Http\Controllers\Admin\Home@contact');
         $router->post('/home/listdata', '\App\Http\Controllers\Admin\Home@listdata');
         $router->get('/home/do-status', '\App\Http\Controllers\Admin\Home@doStatus');
         $router->get('/home/update-static', '\App\Http\Controllers\Admin\Home@updateStatic');
+        $router->get('/home/update-static', '\App\Http\Controllers\Admin\Home@updateStatic');
 
+        $router->get('/news', '\App\Http\Controllers\Admin\News@index');
+        $router->post('/news/listdata', '\App\Http\Controllers\Admin\News@listdata');
+        $router->get('/news/edit', '\App\Http\Controllers\Admin\News@Edit');
+
+
+        $router->post('/home/do-add-static', '\App\Http\Controllers\Admin\Home@doAddStatic');
+        $router->post('/upload-image', '\App\Http\Controllers\Admin\Home@uploadImage');
+
+        $router->get('/about', '\App\Http\Controllers\Admin\About@index');
+        $router->post('/about/do-add', '\App\Http\Controllers\Admin\About@doAdd');
+
+        $router->get('/contact', '\App\Http\Controllers\Admin\Contact@index');
+        $router->post('/contact/do-add', '\App\Http\Controllers\Admin\Contact@doAdd');
     });
 });

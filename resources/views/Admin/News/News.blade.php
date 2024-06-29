@@ -1,31 +1,24 @@
 @extends('Admin/Layout.Main')
 @section('Content')
 <main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1>Home Settings</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Home Setting</h5>
-                        <!-- Table with stripped rows -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title">News</h5>
+                            <button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Create News</button>
+                        </div>
                         <table class="table border table-bordered table-hover" id="data-table">
                             <thead>
-                                <th width="70%">
-                                    <b>Area Settings</b>
-                                </th>
-                                <th>Link</th>
-                                <th>Active</th>
+                                <th width="5%">no</th>
+                                <th width="30%">title</th>
+                                <th>category</th>
+                                <th>created at</th>
+                                <th>Updated at</th>
+                                <th>Action</th>
                             </thead>
                         </table>
                         <!-- End Table with stripped rows -->
@@ -53,25 +46,35 @@
                 [0, "DESC"]
             ],
             "ajax": {
-                "url": "{{ URL::asset(env('APP_URL').'/admin-page/home/listdata') }}",
+                "url": "{{ URL::asset(env('APP_URL').'/admin-page/news/listdata') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
                     "_token": "<?= csrf_token() ?>"
                 }
             },
-            "lengthMenu": [
-                [25, 50, 100],
-                [25, 50, 100]
-            ], // Menentukan opsi jumlah entri per halaman
-            "pageLength": 25, // Menentukan jumlah entri default per halaman
             "columns": [{
-                    data: 'menu_name',
-                    name: 'menu_name'
+                    data: 'no',
+                    name: 'no'
                 },
                 {
-                    data: 'link',
-                    name: 'link',
+                    data: 'title',
+                    name: 'title',
+                    orderable: false
+                },
+                {
+                    data: 'category_name',
+                    name: 'category_name',
+                    orderable: false
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at',
+                    orderable: false
+                },
+                {
+                    data: 'updated_at',
+                    name: 'updated_at',
                     orderable: false
                 },
                 {
@@ -97,15 +100,17 @@
         dataid = $(e).attr('dataid');
         var arr = dataid.split("|");
         var link = $("#link").val();
-        if (action == 'status') {
+
+
+
+        if (action == 'delete') {
             $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/do-status') }}", {
-                    id: arr[0],
-                    value: arr[1],
+                    id: arr[0]
                 },
                 function(data) {});
         }
 
-        if (action == 'update') {
+        if (action == 'edit') {
             $('#modalAction').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -114,9 +119,8 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/update-static') }}", {
-                    id: arr[0],
-                    menu_name: arr[1]
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/edit') }}", {
+                    id: arr[0]
                 },
                 function(data) {
                     $(".modal-content").html(data);

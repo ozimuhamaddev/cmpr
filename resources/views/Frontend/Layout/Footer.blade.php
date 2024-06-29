@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 @foreach($data['menu']->data as $menuItem)
-                @if($menuItem->menu_id == 14 && $menuItem->active == 'Y')
+                @if($menuItem->menu_id == 8 && $menuItem->active == 'Y')
                 <div class="col-lg-4 col-md-6 footer-widget footer-about">
                     <h3 class="widget-title">{{$menuItem->menu_name}}</h3>
                     <img loading="lazy" style="margin-top:-20px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" alt="PT Cakrawala Synergy Perkasa">
@@ -22,6 +22,7 @@
                 </div><!-- Col end -->
                 @endif
                 @endforeach
+
                 @foreach($data['menu']->data as $menuItem)
                 @if($menuItem->menu_id == 15 && $menuItem->active == 'Y')
                 <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
@@ -39,8 +40,9 @@
                 </div><!-- Col end -->
                 @endif
                 @endforeach
+
                 @foreach($data['menu']->data as $menuItem)
-                @if($menuItem->menu_id == 16 && $menuItem->active == 'Y')
+                @if($menuItem->menu_id == 13 && $menuItem->active == 'Y')
                 <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 footer-widget">
                     <h3 class="widget-title">{{$menuItem->menu_name}}</h3>
                     <ul class="list-arrow">
