@@ -11,13 +11,13 @@ use App\Helpers\HelperService;
 use Session;
 
 
-class News extends Controller
+class Projects extends Controller
 {
     public function index(Request $request)
     {
 
-        $data['menu'] = "news";
-        return view('Admin.News.News', $data);
+        $data['menu'] = "projects";
+        return view('Admin.Projects.Projects', $data);
     }
 
     public function listdata(Request $request)
@@ -27,7 +27,7 @@ class News extends Controller
         $start = $sanitizedInput['start'];
         $length = $sanitizedInput['length'];
         $page = ($start == 0) ? 1 : ($start / $length) + 1;
-        $urlMenu = '/admin/news/index-admin';
+        $urlMenu = '/admin/projects/index-admin';
         $sort_by = $request->post('order')[0]['column'];
         $dir = $request->post('order')[0]['dir'];
         $search = $sanitizedInput['columns'];
@@ -48,7 +48,7 @@ class News extends Controller
                 $nestedData['no'] = $a++;
                 $nestedData['title'] = $rows->data[$i]->title;
                 $nestedData['short_description'] = $rows->data[$i]->short_description;
-                $nestedData['category_name'] = $rows->data[$i]->category_name;
+                $nestedData['proj_category_name'] = $rows->data[$i]->proj_category_name;
                 $nestedData['created_at'] = $rows->data[$i]->created_at;
                 $nestedData['updated_at'] = $rows->data[$i]->updated_at;
 
@@ -79,37 +79,34 @@ class News extends Controller
 
     public function Add(Request $request)
     {
-        $data['menu'] = "news";
-        $data['title'] = "Create News";
+        $data['menu'] = "projects";
+        $data['title'] = "Create projects";
+        $data['id'] = $request->id;
 
         $param = [
             "token" => session('token')
         ];
 
-        $data['category'] = json_decode(HelperService::myCurl('/category-news', $param));
-        $data['tags'] = json_decode(HelperService::myCurl('/tags-news', $param));
-        return view('Admin.News.Add', $data);
+        $data['category'] = json_decode(HelperService::myCurlToken('/projects-category', $param));
+        return view('Admin.Projects.Add', $data);
     }
 
     public function Edit(Request $request)
     {
-        $data['menu'] = "news";
-        $data['title'] = "Edit News";
+        $data['menu'] = "projects";
+        $data['title'] = "Edit Projects";
         $data['id'] = $request->id;
-
 
         $param = [
             "id" => $request->id
         ];
 
-        $data['news'] = json_decode(HelperService::myCurl('/news-detail', $param));
+        $data['projects'] = json_decode(HelperService::myCurlToken('/admin/projects-detail', $param));
         $param = [
             "token" => session('token')
         ];
-
-        $data['category'] = json_decode(HelperService::myCurl('/category-news', $param));
-        $data['tags'] = json_decode(HelperService::myCurl('/tags-news', $param));
-        return view('Admin.News.Edit', $data);
+        $data['category'] = json_decode(HelperService::myCurlToken('/projects-category', $param));
+        return view('Admin.Projects.Edit', $data);
     }
 
     public function doAdd(Request $request)
@@ -120,7 +117,7 @@ class News extends Controller
         if ($request->hasFile('file')) {
             // Check if there is a file to delete
             if ($file_before) {
-                $oldFilePath = base_path('public/template/images/news') . '/' . $file_before;
+                $oldFilePath = base_path('public/template/images/projects') . '/' . $file_before;
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
@@ -129,7 +126,7 @@ class News extends Controller
             $image_ori = $request->file('file')->getClientOriginalName();
             $extension = $request->file('file')->getClientOriginalExtension();
             $image = date('YmdHis') . '.' . $extension;
-            $destinationPath = base_path('public/template/images/news');
+            $destinationPath = base_path('public/template/images/projects');
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
@@ -142,13 +139,13 @@ class News extends Controller
             'image' => $image,
             'image_ori' => $image_ori,
             'title' => $request->post('title'),
-            'category_id' => $request->post('category_id'),
+            'proj_category_id' => $request->post('proj_category_id'),
             'tag' => $request->post('tag'),
             'short_description' => $request->post('short_description'),
             'description' => $request->post('description')
         ];
-
-        $rows = json_decode(HelperService::myCurlToken('/admin/news/do-add', $param));
+        
+        $rows = json_decode(HelperService::myCurlToken('/admin/projects/do-add', $param));
         // Make a curl request with the parameters
         // Prepare response data
         $data['response_code'] = $rows->response_code;

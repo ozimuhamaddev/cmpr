@@ -22,19 +22,6 @@ class Contact extends Controller
 
     public function doAdd(Request $request)
     {
-        $image = "";
-        $image_ori = "";
-        if ($request->hasFile('file')) {
-            $image_ori = $request->file('file')->getClientOriginalName();
-            $extension = $request->file('file')->getClientOriginalExtension();
-            $image = date('YmdHis') . '.' . $extension;
-            $destinationPath = base_path('public/uploads');
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-            $request->file('file')->move($destinationPath, $image);
-        }
-
         $param = [
             'title' => $request->post('title'),
             'sub_title' => $request->post('sub_title'),

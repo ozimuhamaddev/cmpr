@@ -34,7 +34,6 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
 
     Route::middleware(['check.session'])->group(function () use ($router) {
         $router->get('/home', '\App\Http\Controllers\Admin\Home@index');
-        $router->get('/projects', '\App\Http\Controllers\Admin\Home@projects');
         $router->get('/services', '\App\Http\Controllers\Admin\Home@services');
         $router->get('/contact', '\App\Http\Controllers\Admin\Home@contact');
         $router->post('/home/listdata', '\App\Http\Controllers\Admin\Home@listdata');
@@ -44,8 +43,15 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
 
         $router->get('/news', '\App\Http\Controllers\Admin\News@index');
         $router->post('/news/listdata', '\App\Http\Controllers\Admin\News@listdata');
+        $router->get('/news/add', '\App\Http\Controllers\Admin\News@Add');
         $router->get('/news/edit', '\App\Http\Controllers\Admin\News@Edit');
+        $router->post('/news/do-add', '\App\Http\Controllers\Admin\News@doAdd');
 
+        $router->get('/projects', '\App\Http\Controllers\Admin\Projects@index');
+        $router->post('/projects/listdata', '\App\Http\Controllers\Admin\Projects@listdata');
+        $router->get('/projects/add', '\App\Http\Controllers\Admin\Projects@Add');
+        $router->get('/projects/edit', '\App\Http\Controllers\Admin\Projects@Edit');
+        $router->post('/projects/do-add', '\App\Http\Controllers\Admin\Projects@doAdd');
 
         $router->post('/home/do-add-static', '\App\Http\Controllers\Admin\Home@doAddStatic');
         $router->post('/upload-image', '\App\Http\Controllers\Admin\Home@uploadImage');

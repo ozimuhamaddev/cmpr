@@ -24,45 +24,41 @@
     <div class="col-md-7">
       <label for="validationCustom03" class="form-label">Image</label>
       <div class="image-container" style="margin-bottom: 20px;">
-        <img id="image" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/news/'.$news->data->getDetail->image) }}" alt="{{ $news->data->getDetail->image_ori }}">
+        <img id="image" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/projects/'.$projects->data->getDetail->image) }}" alt="{{ $projects->data->getDetail->image_ori }}">
       </div>
       <input type="file" name="file" class="form-control" id="uploadImage" accept="image/*">
     </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Title</label>
-      <input type="text" name="title" class="form-control" value="{{$news->data->getDetail->title}}" required>
+      <input type="text" name="title" class="form-control" value="{{$projects->data->getDetail->title}}" required>
     </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Category</label>
-      <select name="category_id" class="form-control">
-      <option value="" selected>-- Choose a Category --</option>
+      <select name="proj_category_id" class="form-control">
+        <option value="" selected>-- Choose a Category --</option>
         @for($i = 0;$i < count($category->data);$i++)
-          @if($category->data[$i]->id == $news->data->getDetail->category_id)
-          <option value="{{$category->data[$i]->id}}" selected>{{ucwords($category->data[$i]->category_name)}}</option>
+          @if($category->data[$i]->id == $projects->data->getDetail->proj_category_id)
+          <option value="{{$category->data[$i]->id}}" selected>{{ucwords($category->data[$i]->proj_category_name)}}</option>
           @else
-          <option value="{{$category->data[$i]->id}}">{{ucwords($category->data[$i]->category_name)}}</option>
+          <option value="{{$category->data[$i]->id}}">{{ucwords($category->data[$i]->proj_category_name)}}</option>
           @endif
           @endfor
       </select>
     </div>
     <div class="col-md-12">
-      <label for="formFile" class="form-label">Tags</label>
-      <input type="text" name="tag" class="form-control" value="{{$news->data->getDetail->tag}}" required>
-    </div>
-    <div class="col-md-12">
       <label for="formFile" class="form-label">Short Description</label>
       <textarea class="tinymce-seditor validate" name="short_description">
-      {!!$news->data->getDetail->short_description!!}
+      {!!$projects->data->getDetail->short_description!!}
       </textarea>
     </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Description</label>
       <textarea class="tinymce-seditor validate" name="description">
-      {!!$news->data->getDetail->description!!}
+      {!!$projects->data->getDetail->description!!}
       </textarea>
     </div>
     <div class="text-center">
-      <input type="hidden" name="file_before" value="{{$news->data->getDetail->image}}">
+      <input type="hidden" name="file_before" value="{{$projects->data->getDetail->image}}">
       <input type="hidden" name="id" value="{{$id}}">
       <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
       <button type="reset" class="btn btn-secondary">Reset</button>
@@ -150,7 +146,7 @@
         });
         $.ajax({
           type: "POST",
-          url: "{{ URL::asset(env('APP_URL').'/admin-page/news/do-add') }}",
+          url: "{{ URL::asset(env('APP_URL').'/admin-page/projects/do-add') }}",
           data: data,
           processData: false,
           contentType: false,

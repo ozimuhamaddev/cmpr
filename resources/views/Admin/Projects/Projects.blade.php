@@ -8,8 +8,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="card-title">News</h5>
-                            <button class="btn btn-success" dataaction="add"  dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create News</button>
+                            <h5 class="card-title">Projects</h5>
+                            <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create Projects</button>
                         </div>
                         <table class="table border table-bordered table-hover" id="data-table">
                             <thead>
@@ -46,7 +46,7 @@
                 [0, "DESC"]
             ],
             "ajax": {
-                "url": "{{ URL::asset(env('APP_URL').'/admin-page/news/listdata') }}",
+                "url": "{{ URL::asset(env('APP_URL').'/admin-page/projects/listdata') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -63,8 +63,8 @@
                     orderable: false
                 },
                 {
-                    data: 'category_name',
-                    name: 'category_name',
+                    data: 'proj_category_name',
+                    name: 'proj_category_name',
                     orderable: false
                 },
                 {
@@ -119,7 +119,7 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/edit') }}", {
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/projects/edit') }}", {
                     id: arr[0]
                 },
                 function(data) {
@@ -143,7 +143,7 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/add') }}", {},
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/projects/add') }}", {},
                 function(data) {
                     $(".modal-content").html(data);
 
