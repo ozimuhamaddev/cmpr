@@ -8,14 +8,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="card-title">News</h5>
-                            <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create News</button>
+                            <h5 class="card-title">Services</h5>
+                            <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create Services</button>
                         </div>
                         <table class="table border table-bordered table-hover" id="data-table">
                             <thead>
                                 <th width="5%">no</th>
                                 <th width="30%">title</th>
-                                <th>category</th>
                                 <th>created at</th>
                                 <th>Updated at</th>
                                 <th>Action</th>
@@ -46,7 +45,7 @@
                 [0, "DESC"]
             ],
             "ajax": {
-                "url": "{{ URL::asset(env('APP_URL').'/admin-page/news/listdata') }}",
+                "url": "{{ URL::asset(env('APP_URL').'/admin-page/services/listdata') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -60,11 +59,6 @@
                 {
                     data: 'title',
                     name: 'title',
-                    orderable: false
-                },
-                {
-                    data: 'category_name',
-                    name: 'category_name',
                     orderable: false
                 },
                 {
@@ -117,7 +111,7 @@
                 },
                 function(isConfirm) {
                     if (isConfirm) {
-                        $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/do-delete') }}", {
+                        $.get("{{ URL::asset(env('APP_URL').'/admin-page/services/do-delete') }}", {
                                 id: arr[0]
                             },
                             function(data) {
@@ -143,7 +137,7 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/edit') }}", {
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/services/edit') }}", {
                     id: arr[0]
                 },
                 function(data) {
@@ -167,7 +161,7 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/news/add') }}", {},
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/services/add') }}", {},
                 function(data) {
                     $(".modal-content").html(data);
 

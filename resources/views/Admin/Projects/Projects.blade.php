@@ -100,14 +100,37 @@
         dataid = $(e).attr('dataid');
         var arr = dataid.split("|");
         var link = $("#link").val();
-
-
-
         if (action == 'delete') {
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/do-status') }}", {
-                    id: arr[0]
+            swal({
+                    html: true,
+                    title: '<div style="text-align: left"><i class="fa fa-exclamation-triangle" style="color: #ffc300"></i></div>',
+                    text: '<div style="text-align: left; color: #333; margin-bottom: .5rem;     font-size: 18px; font-weight: 600;">Are you sure you deleted this ?</div>',
+                    // type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: 'btn btn-danger',
+                    cancelButtonColor: 'btn btn-danger',
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel please!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
                 },
-                function(data) {});
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.get("{{ URL::asset(env('APP_URL').'/admin-page/projects/do-delete') }}", {
+                                id: arr[0]
+                            },
+                            function(data) {
+                                swal.close();
+                                toastr.success('Delete successfully');
+                                setTimeout(function() {
+                                    $('#data-table').DataTable().ajax.reload();
+                                }, 1000);
+                            });
+                    } else {
+                        swal.close();
+                    }
+                });
+
         }
 
         if (action == 'edit') {

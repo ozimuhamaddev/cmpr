@@ -186,7 +186,7 @@ class Main extends Controller
         return response()->json($data);
     }
 
-    public function getNavigatorData(Request $request)
+    public static function getNavigatorData(Request $request)
     {
         $param = [
             "token" => session('token')
@@ -255,7 +255,7 @@ class Main extends Controller
     }
 
 
-    public function getFooterData(Request $request)
+    public static function getFooterData(Request $request)
     {
         $data = [];
         $param = [

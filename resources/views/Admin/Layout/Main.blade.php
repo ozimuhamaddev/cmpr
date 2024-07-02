@@ -29,6 +29,12 @@
     <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Include Select2 CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
 </head>
 <style>
     .dataTables_filter {
@@ -106,6 +112,12 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/js/main.js') }}"></script>
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="{{ URL::asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/vendor/bootstrap-sweetalert/sweetalert.min.js') }}" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{{ URL::asset(env('PAGES_SCRIPT_PATH').'/template-admin/assets/js/ui-sweetalert.min.js') }}" type="text/javascript"></script>
 
     <!-- Content start -->
     @yield('Scripts')

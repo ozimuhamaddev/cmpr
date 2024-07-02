@@ -144,8 +144,24 @@ class Projects extends Controller
             'short_description' => $request->post('short_description'),
             'description' => $request->post('description')
         ];
-        
+
         $rows = json_decode(HelperService::myCurlToken('/admin/projects/do-add', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
+    }
+
+    public function doDelete(Request $request)
+    {
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : ""
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/projects/do-delete', $param));
         // Make a curl request with the parameters
         // Prepare response data
         $data['response_code'] = $rows->response_code;

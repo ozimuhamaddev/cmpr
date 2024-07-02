@@ -46,12 +46,14 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->get('/news/add', '\App\Http\Controllers\Admin\News@Add');
         $router->get('/news/edit', '\App\Http\Controllers\Admin\News@Edit');
         $router->post('/news/do-add', '\App\Http\Controllers\Admin\News@doAdd');
+        $router->get('/news/do-delete', '\App\Http\Controllers\Admin\News@doDelete');
 
         $router->get('/projects', '\App\Http\Controllers\Admin\Projects@index');
         $router->post('/projects/listdata', '\App\Http\Controllers\Admin\Projects@listdata');
         $router->get('/projects/add', '\App\Http\Controllers\Admin\Projects@Add');
         $router->get('/projects/edit', '\App\Http\Controllers\Admin\Projects@Edit');
         $router->post('/projects/do-add', '\App\Http\Controllers\Admin\Projects@doAdd');
+        $router->get('/projects/do-delete', '\App\Http\Controllers\Admin\Projects@doDelete');
 
         $router->post('/home/do-add-static', '\App\Http\Controllers\Admin\Home@doAddStatic');
         $router->post('/upload-image', '\App\Http\Controllers\Admin\Home@uploadImage');
@@ -61,5 +63,12 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
 
         $router->get('/contact', '\App\Http\Controllers\Admin\Contact@index');
         $router->post('/contact/do-add', '\App\Http\Controllers\Admin\Contact@doAdd');
+
+        $router->get('/services', '\App\Http\Controllers\Admin\Services@index');
+        $router->post('/services/listdata', '\App\Http\Controllers\Admin\Services@listdata');
+        $router->get('/services/add', '\App\Http\Controllers\Admin\Services@Add');
+        $router->get('/services/edit', '\App\Http\Controllers\Admin\Services@Edit');
+        $router->post('/services/do-add', '\App\Http\Controllers\Admin\Services@doAdd');
+        $router->get('/services/do-delete', '\App\Http\Controllers\Admin\Services@doDelete');
     });
 });
