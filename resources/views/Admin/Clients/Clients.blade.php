@@ -7,15 +7,16 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Home Setting</h5>
-                        <!-- Table with stripped rows -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title">Client</h5>
+                            <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create Client</button>
+                        </div>
                         <table class="table border table-bordered table-hover" id="data-table">
                             <thead>
-                                <th width="70%">
-                                    <b>Area Settings</b>
-                                </th>
-                                <th>Link</th>
-                                <th>Active</th>
+                                <th width="5%">no</th>
+                                <th width="30%">title</th>
+                                <th>Image</th>
+                                <th>Action</th>
                             </thead>
                         </table>
                         <!-- End Table with stripped rows -->
@@ -43,25 +44,25 @@
                 [0, "DESC"]
             ],
             "ajax": {
-                "url": "{{ URL::asset(env('APP_URL').'/admin-page/home/listdata') }}",
+                "url": "{{ URL::asset(env('APP_URL').'/admin-page/clients/listdata') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
                     "_token": "<?= csrf_token() ?>"
                 }
             },
-            "lengthMenu": [
-                [25, 50, 100],
-                [25, 50, 100]
-            ], // Menentukan opsi jumlah entri per halaman
-            "pageLength": 25, // Menentukan jumlah entri default per halaman
             "columns": [{
-                    data: 'menu_name',
-                    name: 'menu_name'
+                    data: 'no',
+                    name: 'no'
                 },
                 {
-                    data: 'link',
-                    name: 'link',
+                    data: 'title',
+                    name: 'title',
+                    orderable: false
+                },
+                {
+                    data: 'image',
+                    name: 'image',
                     orderable: false
                 },
                 {
@@ -87,15 +88,41 @@
         dataid = $(e).attr('dataid');
         var arr = dataid.split("|");
         var link = $("#link").val();
-        if (action == 'status') {
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/do-status') }}", {
-                    id: arr[0],
-                    value: arr[1],
+
+        if (action == 'delete') {
+            swal({
+                    html: true,
+                    title: '<div style="text-align: left"><i class="fa fa-exclamation-triangle" style="color: #ffc300"></i></div>',
+                    text: '<div style="text-align: left; color: #333; margin-bottom: .5rem;     font-size: 18px; font-weight: 600;">Are you sure you deleted this ?</div>',
+                    // type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: 'btn btn-danger',
+                    cancelButtonColor: 'btn btn-danger',
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel please!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
                 },
-                function(data) {});
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.get("{{ URL::asset(env('APP_URL').'/admin-page/clients/do-delete') }}", {
+                                id: arr[0]
+                            },
+                            function(data) {
+                                swal.close();
+                                toastr.success('Delete successfully');
+                                setTimeout(function() {
+                                    $('#data-table').DataTable().ajax.reload();
+                                }, 1000);
+                            });
+                    } else {
+                        swal.close();
+                    }
+                });
+
         }
 
-        if (action == 'update') {
+        if (action == 'edit') {
             $('#modalAction').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -104,9 +131,8 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/update-static') }}", {
-                    id: arr[0],
-                    menu_name: arr[1]
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/clients/edit') }}", {
+                    id: arr[0]
                 },
                 function(data) {
                     $(".modal-content").html(data);
@@ -120,7 +146,7 @@
                 });
         }
 
-        if (action == 'updateImage') {
+        if (action == 'add') {
             $('#modalAction').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -129,10 +155,7 @@
             // Show the modal
             $('#modalAction').modal('show');
 
-            $.get("{{ URL::asset(env('APP_URL').'/admin-page/home/update-image') }}", {
-                    id: arr[0],
-                    menu_name: arr[1]
-                },
+            $.get("{{ URL::asset(env('APP_URL').'/admin-page/clients/add') }}", {},
                 function(data) {
                     $(".modal-content").html(data);
 

@@ -28,6 +28,11 @@ class Main extends Controller
         $data['aboutus'] = json_decode(HelperService::myCurl('/aboutus-home', $param));
         $data['others'] = json_decode(HelperService::myCurl('/others-home', $param));
         $data['projects_category'] = json_decode(HelperService::myCurl('/projects-category', $param));
+        $data['clients'] = json_decode(HelperService::myCurl('/clients-home', $param));
+        $data['numberclient'] = json_decode(HelperService::myCurl('/numberclient-home', $param));
+        $data['wedo'] = json_decode(HelperService::myCurl('/wedo-home', $param));
+        $data['contact'] = json_decode(HelperService::myCurl('/contact-home', $param));
+
         $data['menu'] = json_decode(HelperService::myCurl('/menu', $param));
 
         return view('Frontend.Home', $data);

@@ -54,8 +54,12 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <img style="max-width: 50%;margin-left:90px" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo2.png') }}" alt="PT Cakrawala Synergy Perkasa">
-                    <h5 class="card-title text-center pb-0 fs-4">Dashboard Admin</h5>
+                    @for($a = 0; $a < count($others->data); $a++)
+                      @if($others->data[$a]->menu_id == 18)
+                      <img loading="lazy" style="margin-top:-14px;width: 300px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$others->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
+                      @endif
+                      @endfor
+                      <h5 class="card-title text-center pb-0 fs-4">Dashboard Admin</h5>
                   </div>
 
                   <form class="row g-3 needs-validation" id="formInput" type="POST" novalidate>

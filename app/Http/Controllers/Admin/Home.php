@@ -50,8 +50,14 @@ class Home extends Controller
                 if ($rows->data[$i]->link != "") {
                     $nestedData['link'] = '<a href="' . env('APP_URL') . '/admin-page/' . $rows->data[$i]->link . '"  type="button" class="btn btn-primary btn-sm">redirect menu</a>';
                 } else {
-                    $nestedData['link'] = '<a type="button" class="btn btn-danger btn-sm" dataaction="update" dataid="' . $rows->data[$i]->id . '|' . $rows->data[$i]->menu_name . '" onclick="getaction(this)">edit content</a>';
+                    if (in_array($rows->data[$i]->menu_name, ['icon top', 'icon bottom'])) {
+                        $nestedData['link'] = '<a type="button" class="btn btn-danger btn-sm" dataaction="updateImage" dataid="' . $rows->data[$i]->id . '|' . $rows->data[$i]->menu_name . '" onclick="getaction(this)">edit content</a>';
+                    } else {
+                        $nestedData['link'] = '<a type="button" class="btn btn-danger btn-sm" dataaction="update" dataid="' . $rows->data[$i]->id . '|' . $rows->data[$i]->menu_name . '" onclick="getaction(this)">edit content</a>';
+                    }
                 }
+
+
                 $menu_access = '';
                 if ($rows->data[$i]->active != "Y") {
                     $menu_access .= '
@@ -103,6 +109,20 @@ class Home extends Controller
         return view('Admin.Form.Text', $data);
     }
 
+    public function updateImage(Request $request)
+    {
+        $data['menu'] = "home";
+        $data['title'] = "Update " . ucWords($request->menu_name);
+        $data['id'] = $request->id;
+
+        $param = [
+            'id' =>  $request->id,
+        ];
+
+        $data['data'] =  json_decode(HelperService::myCurlToken('/admin/static', $param));
+
+        return view('Admin.Form.Image', $data);
+    }
 
     public function doAddStatic(Request $request)
     {
@@ -115,6 +135,47 @@ class Home extends Controller
         $data['response_code'] = $rows->response_code;
         $data['message'] = $rows->message;
         return json_encode($data);
+    }
+
+    public function doAddStaticImage(Request $request)
+    {
+        $file_before =  $request->post('file_before');
+        $image = "";
+        $image_ori = "";
+        if ($request->hasFile('file')) {
+            // Check if there is a file to delete
+            if ($file_before) {
+                $oldFilePath = base_path('public/template/images') . '/' . $file_before;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $image_ori = $request->file('file')->getClientOriginalName();
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $image = date('YmdHis') . '.' . $extension;
+            $destinationPath = base_path('public/template/images');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $request->file('file')->move($destinationPath, $image);
+        }
+
+
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : "",
+            'image' => $image,
+            'image_ori' => $image_ori
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/do-add-static-image', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
     }
 
 

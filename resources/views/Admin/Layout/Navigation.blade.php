@@ -1,14 +1,22 @@
  <!-- ======= Sidebar ======= -->
  @php
  $home ="collapsed";
+ $banner ="collapsed";
  $about ="collapsed";
  $projects ="collapsed";
  $services ="collapsed";
  $news ="collapsed";
  $contact ="collapsed";
+ $wedo ="collapsed";
+ $numberclient ="collapsed";
+ $clients ="collapsed";
 
  if($menu =="home"){
  $home ="";
+ }
+
+ if($menu =="banner"){
+ $banner ="";
  }
 
  if($menu =="about"){
@@ -30,6 +38,19 @@
  if($menu =="contact"){
  $contact ="";
  }
+
+ if($menu =="wedo"){
+ $wedo ="";
+ }
+
+ if($menu =="numberclient"){
+ $numberclient ="";
+ }
+
+
+ if($menu =="clients"){
+ $clients ="";
+ }
  @endphp
 
 
@@ -39,6 +60,12 @@
              <a class="nav-link {{$home}}" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/admin-page/home') }}">
                  <i class="bi bi-grid"></i>
                  <span>Home</span>
+             </a>
+         </li><!-- End Dashboard Nav -->
+         <li class="nav-item">
+             <a class="nav-link {{$banner}}" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/admin-page/banner') }}">
+                 <i class="bi bi-grid"></i>
+                 <span>Banner</span>
              </a>
          </li><!-- End Dashboard Nav -->
          <li class="nav-item">
@@ -71,7 +98,24 @@
                  <span>Contact</span>
              </a>
          </li><!-- End Dashboard Nav -->
-
+         <li class="nav-item">
+             <a class="nav-link {{$wedo}}" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/admin-page/wedo') }}">
+                 <i class="bi bi-grid"></i>
+                 <span>We Do</span>
+             </a>
+         </li><!-- End Dashboard Nav -->
+         <li class="nav-item">
+             <a class="nav-link {{$numberclient}}" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/admin-page/numberclient') }}">
+                 <i class="bi bi-grid"></i>
+                 <span>Number Client</span>
+             </a>
+         </li><!-- End Dashboard Nav -->
+         <li class="nav-item">
+             <a class="nav-link {{$clients}}" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/admin-page/clients') }}">
+                 <i class="bi bi-grid"></i>
+                 <span>Clients</span>
+             </a>
+         </li><!-- End Dashboard Nav -->
      </ul>
 
  </aside><!-- End Sidebar-->

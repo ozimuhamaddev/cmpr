@@ -39,7 +39,7 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->post('/home/listdata', '\App\Http\Controllers\Admin\Home@listdata');
         $router->get('/home/do-status', '\App\Http\Controllers\Admin\Home@doStatus');
         $router->get('/home/update-static', '\App\Http\Controllers\Admin\Home@updateStatic');
-        $router->get('/home/update-static', '\App\Http\Controllers\Admin\Home@updateStatic');
+        $router->get('/home/update-image', '\App\Http\Controllers\Admin\Home@updateImage');
 
         $router->get('/news', '\App\Http\Controllers\Admin\News@index');
         $router->post('/news/listdata', '\App\Http\Controllers\Admin\News@listdata');
@@ -56,6 +56,7 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->get('/projects/do-delete', '\App\Http\Controllers\Admin\Projects@doDelete');
 
         $router->post('/home/do-add-static', '\App\Http\Controllers\Admin\Home@doAddStatic');
+        $router->post('/home/do-add-staticImage', '\App\Http\Controllers\Admin\Home@doAddStaticImage');
         $router->post('/upload-image', '\App\Http\Controllers\Admin\Home@uploadImage');
 
         $router->get('/about', '\App\Http\Controllers\Admin\About@index');
@@ -70,5 +71,33 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->get('/services/edit', '\App\Http\Controllers\Admin\Services@Edit');
         $router->post('/services/do-add', '\App\Http\Controllers\Admin\Services@doAdd');
         $router->get('/services/do-delete', '\App\Http\Controllers\Admin\Services@doDelete');
+
+        $router->get('/banner', '\App\Http\Controllers\Admin\Banner@index');
+        $router->post('/banner/listdata', '\App\Http\Controllers\Admin\Banner@listdata');
+        $router->get('/banner/add', '\App\Http\Controllers\Admin\Banner@Add');
+        $router->get('/banner/edit', '\App\Http\Controllers\Admin\Banner@Edit');
+        $router->post('/banner/do-add', '\App\Http\Controllers\Admin\Banner@doAdd');
+        $router->get('/banner/do-delete', '\App\Http\Controllers\Admin\Banner@doDelete');
+
+        $router->get('/wedo', '\App\Http\Controllers\Admin\WeDo@index');
+        $router->post('/wedo/listdata', '\App\Http\Controllers\Admin\WeDo@listdata');
+        $router->get('/wedo/add', '\App\Http\Controllers\Admin\WeDo@Add');
+        $router->get('/wedo/edit', '\App\Http\Controllers\Admin\WeDo@Edit');
+        $router->post('/wedo/do-add', '\App\Http\Controllers\Admin\WeDo@doAdd');
+        $router->get('/wedo/do-delete', '\App\Http\Controllers\Admin\WeDo@doDelete');
+
+        $router->get('/numberclient', '\App\Http\Controllers\Admin\NumberClient@index');
+        $router->post('/numberclient/listdata', '\App\Http\Controllers\Admin\NumberClient@listdata');
+        $router->get('/numberclient/add', '\App\Http\Controllers\Admin\NumberClient@Add');
+        $router->get('/numberclient/edit', '\App\Http\Controllers\Admin\NumberClient@Edit');
+        $router->post('/numberclient/do-add', '\App\Http\Controllers\Admin\NumberClient@doAdd');
+        $router->get('/numberclient/do-delete', '\App\Http\Controllers\Admin\NumberClient@doDelete');
+
+        $router->get('/clients', '\App\Http\Controllers\Admin\Clients@index');
+        $router->post('/clients/listdata', '\App\Http\Controllers\Admin\Clients@listdata');
+        $router->get('/clients/add', '\App\Http\Controllers\Admin\Clients@Add');
+        $router->get('/clients/edit', '\App\Http\Controllers\Admin\Clients@Edit');
+        $router->post('/clients/do-add', '\App\Http\Controllers\Admin\Clients@doAdd');
+        $router->get('/clients/do-delete', '\App\Http\Controllers\Admin\Clients@doDelete');
     });
 });

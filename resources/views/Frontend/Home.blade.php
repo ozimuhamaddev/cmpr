@@ -49,7 +49,7 @@
         <div class="row">
             @for($a = 0; $a < count($others->data); $a++)
                 @if($others->data[$a]->menu_id == 2)
-                <div class="ts-intro">
+                <div class="col-12">
                     {!!$others->data[$a]->description!!}
                 </div><!-- Intro box end -->
                 @endif
@@ -79,7 +79,7 @@
                                 <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$services->data[$a]->icon_image) }}" alt="{{$services->data[$a]->icon_image_ori}}" />
                             </div>
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">{{$services->data[$a]->title}}</a></h3>
+                                <h3 class="service-box-title"><a href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}">{{$services->data[$a]->title}}</a></h3>
                                 <p>{{$services->data[$a]->short_description}}</p>
                                 <a class="learn-more d-inline-block" href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                             </div>
@@ -99,18 +99,16 @@
     <div class="container">
         <div class="facts-wrapper">
             <div class="row">
-                @for($a = 0; $a < count($others->data); $a++)
-                    @if($others->data[$a]->menu_id == 1)
+                @for($a = 0; $a < count($numberclient->data); $a++)
                     <div class="col-md-3 col-sm-6 ts-facts">
                         <div class="ts-facts-img">
-                            <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$others->data[$a]->icon_image) }}" alt="{{$others->data[$a]->icon_image}}">
+                            <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$numberclient->data[$a]->icon_image) }}" alt="{{$numberclient->data[$a]->icon_image}}">
                         </div>
                         <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="{!!$others->data[$a]->short_description!!}">0</span></h2>
-                            <h3 class="ts-facts-title">{{$others->data[$a]->title}}</h3>
+                            <h2 class="ts-facts-num"><span class="counterUp" data-count="{!!$numberclient->data[$a]->short_description!!}">0</span></h2>
+                            <h3 class="ts-facts-title">{{$numberclient->data[$a]->title}}</h3>
                         </div>
                     </div><!-- Col end -->
-                    @endif
                     @endfor
             </div> <!-- Facts end -->
         </div>
@@ -138,8 +136,7 @@
             $count = 0; // Variabel untuk menghitung iterasi
             @endphp
 
-            @foreach($others->data as $key => $item)
-            @if($item->menu_id == 5)
+            @foreach($wedo->data as $key => $item)
             @if($count % 3 == 0) <!-- Membuka div baru setiap 3 iterasi -->
             <div class="col-lg-4">
                 @endif
@@ -160,7 +157,6 @@
 
                 @if($count % 3 == 0) <!-- Menutup div setiap 3 iterasi -->
             </div><!-- Col end -->
-            @endif
             @endif
             @endforeach
 
@@ -255,7 +251,6 @@
                 <div id="testimonial-slide" class="testimonial-slide">
                     @php $menu6Found = true; @endphp
                     @foreach($others->data as $other)
-                    @if($other->menu_id == 6)
                     <div class="item">
                         <div class="quote-item">
                             <span class="quote-text">
@@ -270,7 +265,6 @@
                             </div>
                         </div><!-- Quote item end -->
                     </div>
-                    @endif
                     @endforeach
                 </div><!-- Testimonial carousel end -->
             </div><!-- Col end -->
@@ -285,32 +279,30 @@
                 @if($menuItem->menu_id == 7 && $menuItem->active == 'Y')
                 @if(!$menu6Found)
                 <div class="col-lg-12">
-                @else
-                <div class="col-lg-6">
-                @endif
-
-                    <h3 class="column-title">{{$menuItem->menu_name}}</h3>
-                    <div class="row all-clients">
-                        @foreach($others->data as $other)
-                        @if($other->menu_id == 7)
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$other->image) }}" alt="{{$other->image_ori}}" /></a>
-                            </figure>
-                        </div><!-- Client end -->
+                    @else
+                    <div class="col-lg-6">
                         @endif
-                        @endforeach
-                    </div><!-- Clients row end -->
+
+                        <h3 class="column-title">{{$menuItem->menu_name}}</h3>
+                        <div class="row all-clients">
+                            @foreach($clients->data as $other)
+                            <div class="col-sm-4 col-6">
+                                <figure class="clients-logo">
+                                    <a href="#!"><img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$other->image) }}" alt="{{$other->image_ori}}" /></a>
+                                </figure>
+                            </div><!-- Client end -->
+                            @endforeach
+                        </div><!-- Clients row end -->
+                    </div><!-- Col end -->
+                    @endif
+                    @endforeach
+
+                    @if(!$menu6Found)
                 </div><!-- Col end -->
                 @endif
-                @endforeach
 
-                @if(!$menu6Found)
-            </div><!-- Col end -->
-            @endif
-
-        </div><!-- Row end -->
-    </div><!-- Container end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
 </section><!-- Content end -->
 
 

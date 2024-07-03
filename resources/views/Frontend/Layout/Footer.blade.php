@@ -6,9 +6,15 @@
                 @if($menuItem->menu_id == 8 && $menuItem->active == 'Y')
                 <div class="col-lg-4 col-md-6 footer-widget footer-about">
                     <h3 class="widget-title">{{$menuItem->menu_name}}</h3>
-                    <img loading="lazy" style="margin-top:-20px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" alt="PT Cakrawala Synergy Perkasa">
-                    <p>{!!$data['aboutus']->data->short_description!!}</p>
-                    <!-- <div class="footer-social">
+
+                    @for($a = 0; $a < count($data['others']->data); $a++)
+                        @if($data['others']->data[$a]->menu_id == 19)
+                        <img loading="lazy" style="margin-top:-20px;width: 200px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$data['others']->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
+                        @endif
+                        @endfor
+
+                        <p>{!!$data['aboutus']->data->short_description!!}</p>
+                        <!-- <div class="footer-social">
                         <ul>
                             <li><a href="https://facebook.com/themefisher" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                             <li><a href="https://twitter.com/themefisher" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -18,7 +24,7 @@
                             </li>
                         </ul>
                     </div> -->
-                    <!-- Footer social end -->
+                        <!-- Footer social end -->
                 </div><!-- Col end -->
                 @endif
                 @endforeach

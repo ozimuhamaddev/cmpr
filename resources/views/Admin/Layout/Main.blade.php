@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Tables / Data - NiceAdmin Bootstrap Template</title>
+    <title>PT Cakrawala Synergy Perkasa - Company Profile</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template-admin/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" rel="icon">
+    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -52,7 +52,7 @@
 <body>
 
     <!-- Header start -->
-    @include('Admin/Layout.Header')
+    @include('Admin/Layout.Header', ['data' => App\Http\Controllers\Frontend\Main::getFooterData(request())])
     <!--/ Header end -->
     <!-- Header start -->
     @include('Admin/Layout.Navigation')

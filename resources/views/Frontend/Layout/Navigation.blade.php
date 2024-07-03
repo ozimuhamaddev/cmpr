@@ -23,7 +23,11 @@
             <!--/ Row end -->
 
             <div class="nav-search">
-                <img loading="lazy" style="margin-top:-20px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" alt="PT Cakrawala Synergy Perkasa">
+                @for($a = 0; $a < count($others->data); $a++)
+                    @if($others->data[$a]->menu_id == 18)
+                    <img loading="lazy" style="margin-top:-14px;width: 300px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$others->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
+                    @endif
+                    @endfor
             </div><!-- Search end -->
         </div>
         <!--/ Container end -->

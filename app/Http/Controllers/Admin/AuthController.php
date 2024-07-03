@@ -19,19 +19,20 @@ class AuthController extends Controller
         $data = [];
         $data['menu'] = "login";
         // Check if the user session exists
+        $param = [
+            "token" => Session('token')
+        ];
         if (session()->has('token')) {
             // Redirect to the desired route if the session exists
-            $param = [
-                "token" => Session('token')
-            ];
             $check = json_decode(HelperService::myCurl('/check-token', $param));
+
             if ($check->response_code != 200) {
                 return redirect(env('APP_URL') . '/admin-page/logout');
             } else {
                 return redirect(env('APP_URL') . '/admin-page/home');
             }
         }
-
+        $data['others'] = json_decode(HelperService::myCurl('/others-home', $param));
         return view('Admin.Login', $data);
     }
 

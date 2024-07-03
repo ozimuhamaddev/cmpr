@@ -2,9 +2,12 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
       <div class="d-flex align-items-center justify-content-between">
-          <img src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" alt="">
-
-          <i class="bi bi-list toggle-sidebar-btn"></i>
+              @for($a = 0; $a < count($data['others']->data); $a++)
+                  @if($data['others']->data[$a]->menu_id == 18)
+                  <img loading="lazy" style="width: 300px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$data['others']->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
+                  @endif
+                  @endfor
+                  <i class="bi bi-list toggle-sidebar-btn"></i>
       </div><!-- End Logo -->
 
       <!-- <div class="search-bar">
