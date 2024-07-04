@@ -41,7 +41,7 @@
     <div class="body-inner">
         <!--/ Topbar end -->
         <!-- Header start -->
-        @include('Frontend/Layout.Navigation', ['menu' => App\Http\Controllers\Frontend\Main::getNavigatorData(request())])
+        @include('Frontend/Layout.Navigation', ['data' => App\Http\Controllers\Frontend\Main::getNavigatorData(request())])
         <!--/ Header end -->
         <!-- Content start -->
         @yield('Content')

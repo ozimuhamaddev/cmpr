@@ -11,8 +11,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" rel="icon">
-    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/logo.png') }}" rel="icon">
+    <link href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/logo.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

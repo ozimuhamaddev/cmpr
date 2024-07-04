@@ -10,7 +10,7 @@
 
                         <div id="navbar-collapse" class="collapse navbar-collapse">
                             <ul class="nav navbar-nav mr-auto">
-                                @foreach ($menu as $item)
+                                @foreach ($data['menu'] as $item)
                                 <li class="nav-item {{ $item['active'] }}"><a class="nav-link" href="{{ $item['url'] }}">{{ $item['name'] }}</a></li>
                                 @endforeach
 
@@ -23,9 +23,9 @@
             <!--/ Row end -->
 
             <div class="nav-search">
-                @for($a = 0; $a < count($others->data); $a++)
-                    @if($others->data[$a]->menu_id == 18)
-                    <img loading="lazy" style="margin-top:-14px;width: 300px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$others->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
+                @for($a = 0; $a < count($data['others']->data); $a++)
+                    @if($data['others']->data[$a]->menu_id == 18)
+                    <img loading="lazy" style="margin-top:-14px;width: 300px;" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/'.$data['others']->data[$a]->image) }}" alt="PT Cakrawala Synergy Perkasa">
                     @endif
                     @endfor
             </div><!-- Search end -->

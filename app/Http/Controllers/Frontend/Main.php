@@ -255,8 +255,13 @@ class Main extends Controller
                     break;
             }
         }
-
-        return $data;
+        $nav = [];
+        $nav['menu'] = $data;
+        $param = [
+            "token" => session('token')
+        ];
+        $nav['others'] = json_decode(HelperService::myCurl('/others-home', $param));
+        return $nav;
     }
 
 
