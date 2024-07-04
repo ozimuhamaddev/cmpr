@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>PT Cakrawala Synergy Perkasa - Company Profile</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta name="description" content="Learn about PT Cakrawala Synergy Perkasa, our mission, values, and the services we provide.">
+    <meta name="keywords" content="PT Cakrawala Synergy Perkasa, company profile, services, mission, values,listrik, electricity">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Favicons -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
