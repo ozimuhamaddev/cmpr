@@ -34,7 +34,7 @@
                                 <img loading="lazy" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$services->data[$a]->icon_image) }}" alt="{{$services->data[$a]->icon_image_ori}}" />
                             </div>
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">{{$services->data[$a]->title}}</a></h3>
+                                <h3 class="service-box-title"><a href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}">{{$services->data[$a]->title}}</a></h3>
                                 <p>{{$services->data[$a]->short_description}}</p>
                                 <a class="learn-more d-inline-block" href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                             </div>
