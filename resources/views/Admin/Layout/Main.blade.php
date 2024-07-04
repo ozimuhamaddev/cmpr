@@ -39,6 +39,20 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
 
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="PT Cakrawala Synergy Perkasa - Company Profile">
+    <meta property="og:description" content="Learn about PT Cakrawala Synergy Perkasa, our mission, values, and the services we provide.">
+    <meta property="og:image" content="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Robots Meta Tag -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
+
 </head>
 <style>
     .dataTables_filter {
@@ -126,6 +140,22 @@
     <!-- Content start -->
     @yield('Scripts')
     <!--/ Content end -->
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "name": "PT Cakrawala Synergy Perkasa",
+            "url": "{{ url()->current() }}",
+            "logo": "{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}",
+            "sameAs": [
+                "https://www.facebook.com/YourPage",
+                "https://www.twitter.com/YourProfile",
+                "https://www.instagram.com/YourProfile"
+            ]
+        }
+    </script>
 
 </body>
 
