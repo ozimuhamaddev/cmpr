@@ -10,7 +10,8 @@
     <!-- Mobile Specific Metas
 ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Company Profile">
+    <meta name="description" content="Learn about PT Cakrawala Synergy Perkasa, our mission, values, and the services we provide.">
+    <meta name="keywords" content="PT Cakrawala Synergy Perkasa, company profile, services, mission, values,listrik, electricity">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name=author content="Themefisher">
     <meta name=generator content="PT Cakrawala Synergy Perkasa">
@@ -34,6 +35,21 @@
     <link rel="stylesheet" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/plugins/colorbox/colorbox.css') }}">
     <!-- Template styles-->
     <link rel="stylesheet" href="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/css/style.css') }}">
+
+
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="PT Cakrawala Synergy Perkasa - Company Profile">
+    <meta property="og:description" content="Learn about PT Cakrawala Synergy Perkasa, our mission, values, and the services we provide.">
+    <meta property="og:image" content="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Robots Meta Tag -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
 
 </head>
 
@@ -72,6 +88,17 @@
 
         @yield('Scripts')
 
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Organization",
+                "name": "PT Cakrawala Synergy Perkasa",
+                "url": "{{ url()->current() }}",
+                "logo": "{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/footer-logo.png') }}",
+              
+            }
+        </script>
 
     </div><!-- Body inner end -->
 </body>
