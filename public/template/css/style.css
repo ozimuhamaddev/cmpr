@@ -2125,10 +2125,10 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
   align-content: center;
 }
 
-.clients-logo img {
+/* .clients-logo img {
   filter: grayscale(100%);
   filter: gray;
-}
+} */
 
 /* Testimonial
 ================================================== */
