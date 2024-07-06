@@ -35,7 +35,7 @@
         <option value="" selected>-- Choose a Icon --</option>
         @for($i = 0; $i < count($icon->data); $i++)
           <option value="{{ $icon->data[$i]->id }}" data-image="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/icon-image/'.$icon->data[$i]->icon_image) }}">
-            {{ $icon->data[$i]->icon_image_ori }}
+            {{ $icon->data[$i]->icon_name }}
           </option>
           @endfor
       </select>

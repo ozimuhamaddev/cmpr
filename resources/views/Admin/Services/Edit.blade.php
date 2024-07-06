@@ -38,9 +38,9 @@
         <option value="" selected>-- Choose a Category --</option>
         @for($i = 0;$i < count($icon->data);$i++)
           @if($icon->data[$i]->id == $services->data->icon_id)
-          <option value="{{$icon->data[$i]->id}}" selected>{{ucwords($icon->data[$i]->icon_image)}}</option>
+          <option value="{{$icon->data[$i]->id}}" selected>{{ucwords($icon->data[$i]->icon_name)}}</option>
           @else
-          <option value="{{$icon->data[$i]->id}}">{{ucwords($icon->data[$i]->icon_image)}}</option>
+          <option value="{{$icon->data[$i]->id}}">{{ucwords($icon->data[$i]->icon_name)}}</option>
           @endif
           @endfor
       </select>

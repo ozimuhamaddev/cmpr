@@ -15,7 +15,6 @@
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="false">Category Project</button>
                             </li>
                         </ul>
-
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="project" role="tabpanel" aria-labelledby="project-tab">
                                 <div class="d-flex justify-content-between align-items-center mb-3">

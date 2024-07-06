@@ -7,21 +7,33 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="card-title">Services</h5>
-                            <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create Services</button>
-                        </div>
-                        <table class="table border table-bordered table-hover" id="data-table">
-                            <thead>
-                                <th width="5%">no</th>
-                                <th width="30%">title</th>
-                                <th>created at</th>
-                                <th>Updated at</th>
-                                <th>Action</th>
-                            </thead>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 20px;">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="true">Services</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#icon" type="button" role="tab" aria-controls="icon" aria-selected="false">icon</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="services-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title">Services</h5>
+                                    <button class="btn btn-success" dataaction="add" dataid="id" onclick="getaction(this)"><i class="fa fa-plus" aria-hidden="true"></i> Create Services</button>
+                                </div>
+                                <table class="table border table-bordered table-hover" id="data-table">
+                                    <thead>
+                                        <th width="5%">no</th>
+                                        <th width="30%">title</th>
+                                        <th>created at</th>
+                                        <th>Updated at</th>
+                                        <th>Action</th>
+                                    </thead>
+                                </table>
+                                <!-- End Table with stripped rows -->
 
+                            </div>
+                        </div>
                     </div>
                 </div>
 
