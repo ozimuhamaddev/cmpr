@@ -21,19 +21,11 @@
 <div class="modal-body">
   <!-- Multi Columns Form -->
   <form id="formInput" class="row g-3">
-    <div class="col-md-7">
-      <label for="validationCustom03" class="form-label">Image</label>
-      <div class="image-container" style="margin-bottom: 20px;">
-        <img id="image" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/news/'.$news->data->getDetail->image) }}" alt="{{ $news->data->getDetail->image_ori }}">
-      </div>
-      <input type="file" name="file" class="form-control" id="uploadImage" accept="image/*">
-    </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Category</label>
-      <input type="text" name="category_name" class="form-control" value="{{$news->data->getDetail->category_name}}" required>
+      <input type="text" name="proj_category_name" class="form-control" value="{{$category->data->proj_category_name}}" required>
     </div>
     <div class="text-center">
-      <input type="hidden" name="file_before" value="{{$news->data->getDetail->image}}">
       <input type="hidden" name="id" value="{{$id}}">
       <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
       <button type="reset" class="btn btn-secondary">Reset</button>
@@ -55,12 +47,12 @@
     $('#formInput').validate({
       ignore: [],
       rules: {
-        category_name: {
+        proj_category_name: {
           required: true
         },
       },
       messages: {
-        category_name: {
+        proj_category_name: {
           required: "Category Name is required."
         },
       },
@@ -109,7 +101,7 @@
         });
         $.ajax({
           type: "POST",
-          url: "{{ URL::asset(env('APP_URL').'/admin-page/news/do-add') }}",
+          url: "{{ URL::asset(env('APP_URL').'/admin-page/projects/do-add-category') }}",
           data: data,
           processData: false,
           contentType: false,
@@ -121,7 +113,7 @@
             if (data.response_code == '200') {
               $('#modalAction').modal('hide');
               toastr.success('Your action has been successfully submitted.', 'Success!');
-              var dataTable = $('#data-table').DataTable();
+              var dataTable = $('#data-table-category').DataTable();
               dataTable.ajax.reload(null, false);
               $("#btnSubmit").prop("disabled", false);
             } else {

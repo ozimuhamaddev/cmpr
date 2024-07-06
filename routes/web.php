@@ -48,12 +48,24 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->post('/news/do-add', '\App\Http\Controllers\Admin\News@doAdd');
         $router->get('/news/do-delete', '\App\Http\Controllers\Admin\News@doDelete');
 
+        $router->post('/news/listdata-category', '\App\Http\Controllers\Admin\News@listdataCategory');
+        $router->get('/news/add-category', '\App\Http\Controllers\Admin\News@AddCategory');
+        $router->get('/news/edit-category', '\App\Http\Controllers\Admin\News@EditCategory');
+        $router->post('/news/do-add-category', '\App\Http\Controllers\Admin\News@doAddCategory');
+        $router->get('/news/do-delete-category', '\App\Http\Controllers\Admin\News@doDeleteCategory');
+
         $router->get('/projects', '\App\Http\Controllers\Admin\Projects@index');
         $router->post('/projects/listdata', '\App\Http\Controllers\Admin\Projects@listdata');
         $router->get('/projects/add', '\App\Http\Controllers\Admin\Projects@Add');
         $router->get('/projects/edit', '\App\Http\Controllers\Admin\Projects@Edit');
         $router->post('/projects/do-add', '\App\Http\Controllers\Admin\Projects@doAdd');
         $router->get('/projects/do-delete', '\App\Http\Controllers\Admin\Projects@doDelete');
+
+        $router->post('/projects/listdata-category', '\App\Http\Controllers\Admin\Projects@listdataCategory');
+        $router->get('/projects/add-category', '\App\Http\Controllers\Admin\Projects@AddCategory');
+        $router->get('/projects/edit-category', '\App\Http\Controllers\Admin\Projects@EditCategory');
+        $router->post('/projects/do-add-category', '\App\Http\Controllers\Admin\Projects@doAddCategory');
+        $router->get('/projects/do-delete-category', '\App\Http\Controllers\Admin\Projects@doDeleteCategory');
 
         $router->post('/home/do-add-static', '\App\Http\Controllers\Admin\Home@doAddStatic');
         $router->post('/home/do-add-staticImage', '\App\Http\Controllers\Admin\Home@doAddStaticImage');

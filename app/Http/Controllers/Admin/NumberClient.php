@@ -48,7 +48,7 @@ class NumberClient extends Controller
                 $nestedData['no'] = $a++;
                 $nestedData['title'] = $rows->data[$i]->title;
                 $nestedData['short_description'] = $rows->data[$i]->short_description;
-                $nestedData['icon_image'] = '<img style="width: 150px;" src="' . env('GLOBAL_PLUGIN_PATH') . '/template/images/icon-image/' . $rows->data[$i]->icon_image . '" alt="default.png">';
+                $nestedData['icon_image'] = '<img style="width: 80px;" src="' . env('GLOBAL_PLUGIN_PATH') . '/template/images/icon-image/' . $rows->data[$i]->icon_image . '" alt="default.png">';
                 $nestedData['created_at'] = $rows->data[$i]->created_at;
                 $nestedData['updated_at'] = $rows->data[$i]->updated_at;
 

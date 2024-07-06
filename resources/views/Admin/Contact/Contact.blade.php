@@ -171,7 +171,7 @@
                         if (data.response_code == '200') {
                             $('#modalAction').modal('hide');
                             toastr.success('Your action has been successfully submitted.', 'Success!');
-                            var dataTable = $('#users-table').DataTable();
+                            var dataTable = $('#data-table').DataTable();
                             dataTable.ajax.reload(null, false);
                             $("#btnSubmit").prop("disabled", false);
                         } else {

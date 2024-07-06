@@ -62,6 +62,9 @@
             </div><!-- Row end -->
         </div><!-- Container end -->
     </div><!-- Footer main end -->
+
+    <div class="copyright">
+    </div><!-- Copyright end -->
 </footer><!-- Footer end -->
 
 <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed">

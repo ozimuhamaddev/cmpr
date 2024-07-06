@@ -158,7 +158,6 @@ class News extends Controller
         return response()->json($data);
     }
 
-
     public function doDelete(Request $request)
     {
         $param = [
@@ -166,6 +165,113 @@ class News extends Controller
         ];
 
         $rows = json_decode(HelperService::myCurlToken('/admin/news/do-delete', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
+    }
+
+    public function listdataCategory(Request $request)
+    {
+        $sanitizedInput = HelperService::sanitizeInput($request);
+        $draw = $sanitizedInput['draw'];
+        $start = $sanitizedInput['start'];
+        $length = $sanitizedInput['length'];
+        $page = ($start == 0) ? 1 : ($start / $length) + 1;
+        $urlMenu = '/admin/news/index-category';
+        $sort_by = $request->post('order')[0]['column'];
+        $dir = $request->post('order')[0]['dir'];
+        $search = $sanitizedInput['columns'];
+
+        $param = [
+            "page" => $page,
+            "per_page" => $request->post('length'),
+            "search" => $search,
+            "sort_by" => $sort_by,
+            "dir" => $dir
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken($urlMenu, $param));
+        $a = $start + 1;
+        $employee = [];
+        if ($rows) {
+            for ($i = 0; $i < count($rows->data); $i++) {
+                $nestedData['no'] = $a++;
+                $nestedData['category_name'] = $rows->data[$i]->category_name;
+                $menu_access = '';
+                $menu_access .= '<a class="btn btn-warning" style="margin-right:5px" dataaction="editCategory" dataid="' . $rows->data[$i]->id . '" onclick="getaction(this)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+
+                $menu_access .= '<a class="btn btn-danger"style="margin-right:5px" dataaction="deleteCategory"  dataid="' . $rows->data[$i]->id . '" onclick="getaction(this)"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                $nestedData['action'] = $menu_access;
+                $employee[] = $nestedData;
+            }
+
+            $data = array(
+                'draw' => $draw,
+                'recordsTotal' => $rows->recordsTotal,
+                'recordsFiltered' => $rows->recordsTotal,
+                'data' => $employee,
+            );
+        } else {
+            $data = array(
+                'draw' => $draw,
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => $employee,
+            );
+        }
+        echo json_encode($data);
+    }
+
+    public function AddCategory(Request $request)
+    {
+        $data['menu'] = "news";
+        $data['title'] = "Create News";
+        return view('Admin.News.AddCategory', $data);
+    }
+
+    public function EditCategory(Request $request)
+    {
+        $data['menu'] = "category";
+        $data['title'] = "Edit Category";
+        $data['id'] = $request->id;
+
+        $param = [
+            "id" => $request->id
+        ];
+
+        $data['category'] = json_decode(HelperService::myCurlToken('/admin/news/master-category-detail', $param));
+        return view('Admin.News.EditCategory', $data);
+    }
+
+    public function doAddCategory(Request $request)
+    {
+
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : "",
+            'category_name' => $request->post('category_name')
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/news/do-add-category', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
+    }
+
+    public function doDeleteCategory(Request $request)
+    {
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : ""
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/news/do-delete-category', $param));
         // Make a curl request with the parameters
         // Prepare response data
         $data['response_code'] = $rows->response_code;

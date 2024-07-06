@@ -47,12 +47,12 @@
     </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Short Description</label>
-      <textarea class="tinymce-seditor validate"  name="short_description">
+      <textarea class="tinymce-seditor validate" name="short_description">
       </textarea>
     </div>
     <div class="col-md-12">
       <label for="formFile" class="form-label">Description</label>
-      <textarea class="tinymce-seditor validate"  name="description">
+      <textarea class="tinymce-seditor validate" name="description">
       </textarea>
     </div>
     <div class="text-center">
@@ -154,7 +154,7 @@
             if (data.response_code == '200') {
               $('#modalAction').modal('hide');
               toastr.success('Your action has been successfully submitted.', 'Success!');
-              var dataTable = $('#users-table').DataTable();
+              var dataTable = $('#data-table').DataTable();
               dataTable.ajax.reload(null, false);
               $("#btnSubmit").prop("disabled", false);
             } else {

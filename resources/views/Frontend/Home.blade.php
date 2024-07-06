@@ -1,10 +1,41 @@
 @extends('Frontend/Layout.Main')
 @section('Content')
 
+<style>
+    .latest-post-media {
+        width: 350px;
+        height: 210px; /* Set a fixed height */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
+    .latest-post-media img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Preserve the aspect ratio */
+    }
+    
+    .clients-logo {
+        width: 300px;
+        height: 105px; /* Set a fixed height */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .clients-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Preserve the aspect ratio */
+    }
+
+ 
+
+</style>
 <div class="banner-carousel banner-carousel-1 mb-0">
-
-
     @for($a = 0; $a < count($banner->data); $a++)
         <div class="banner-carousel-item" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/slider-main/'.$banner->data[$a]->image) }})">
             <div class="slider-content">
@@ -25,24 +56,32 @@
         @endfor
 </div>
 
+@foreach($menu->data as $menuItem)
+@if($menuItem->menu_id == 21 && $menuItem->active == 'Y')
 <section class="call-to-action-box no-padding">
     <div class="container">
         <div class="action-style-box">
             <div class="row align-items-center">
+                @for($a = 0; $a < count($others->data); $a++)
+                @if($others->data[$a]->menu_id == 21)
                 <div class="col-md-8 text-center text-md-left">
                     <div class="call-to-action-text">
-                        <h3 class="action-title">We understand your needs on construction</h3>
+                        <h3 class="action-title">{!!$others->data[$a]->title!!}</h3>
                     </div>
                 </div><!-- Col end -->
+                @endif
+                @endfor
                 <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
                     <div class="call-to-action-btn">
-                        <a class="btn btn-dark" href="#">Request Quote</a>
+                        <a class="btn btn-dark" href="https://wa.me/"{{str_replace('08','628', $contact->data->phone)}}><i class="fa fa-paper-plane" aria-hidden="true"> Click Me</i>                        </a>
                     </div>
                 </div><!-- col end -->
             </div><!-- row end -->
         </div><!-- Action style box -->
     </div><!-- Container end -->
 </section><!-- Action end -->
+@endif
+@endforeach
 
 <section id="ts-features" class="ts-features">
     <div class="container">
@@ -80,7 +119,7 @@
                             </div>
                             <div class="ts-service-info">
                                 <h3 class="service-box-title"><a href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}">{{$services->data[$a]->title}}</a></h3>
-                                <p>{{$services->data[$a]->short_description}}</p>
+                                <p>{!!$services->data[$a]->short_description!!}</p>
                                 <a class="learn-more d-inline-block" href="{{ asset(env('APP_URL').'/services/'.$services->data[$a]->id) }}" aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                             </div>
                         </div>
@@ -147,7 +186,7 @@
                     </div>
                     <div class="ts-service-box-info">
                         <h3 class="service-box-title"><a href="#">{{ $item->title }}</a></h3>
-                        {{ $item->short_description }}
+                        {!! $item->short_description !!}
                     </div>
                 </div><!-- Service 1 end -->
 
@@ -217,7 +256,7 @@
                                         <h3 class="project-item-title">
                                             <a href="{{ asset(env('APP_URL').'/projects/'.$projects->data[$a]->id) }}">{{$projects->data[$a]->title}}</a>
                                         </h3>
-                                        <p class="project-cat">{{$projects->data[$a]->proj_category_name}}, {{$projects->data[$a]->short_description}}</p>
+                                        <p class="project-cat">{{$projects->data[$a]->proj_category_name}}, {!! $projects->data[$a]->short_description !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +278,6 @@
 @endif
 @endforeach
 
-
 <section class="content">
     <div class="container">
         <div class="row">
@@ -247,14 +285,14 @@
             @foreach($menu->data as $menuItem)
             @if($menuItem->menu_id == 6 && $menuItem->active == 'Y')
             <div class="col-lg-6">
-                <h3 class="column-title">{{$menuItem->menu_name}}</h3>
+                <h3 class="section-sub-title text-center">{{$menuItem->menu_name}}</h3>
                 <div id="testimonial-slide" class="testimonial-slide">
                     @php $menu6Found = true; @endphp
                     @foreach($others->data as $other)
                     <div class="item">
                         <div class="quote-item">
                             <span class="quote-text">
-                                {{$other->description}}
+                                {!! $other->description !!}
                             </span>
                             <div class="quote-item-footer">
                                 <img loading="lazy" class="testimonial-thumb" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/clients/'.$other->image) }}" alt="{{$other->image_ori}}">
@@ -282,8 +320,7 @@
                     @else
                     <div class="col-lg-6">
                         @endif
-
-                        <h3 class="column-title">{{$menuItem->menu_name}}</h3>
+                        <h3 class="section-sub-title text-center">{{$menuItem->menu_name}}</h3>
                         <div class="row all-clients">
                             @foreach($clients->data as $other)
                             <div class="col-sm-4 col-6">
@@ -303,47 +340,12 @@
 
             </div><!-- Row end -->
         </div><!-- Container end -->
-</section><!-- Content end -->
-
-
-
-<section class="subscribe no-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="subscribe-call-to-acton">
-                    <h3>Can We Help?</h3>
-                    <h4>(+9) 847-291-4353</h4>
-                </div>
-            </div><!-- Col end -->
-
-            <div class="col-lg-8">
-                <div class="ts-newsletter row align-items-center">
-                    <div class="col-md-5 newsletter-introtext">
-                        <h4 class="text-white mb-0">Newsletter Sign-up</h4>
-                        <p class="text-white">Latest updates and news</p>
-                    </div>
-
-                    <div class="col-md-7 newsletter-form">
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="newsletter-email" class="content-hidden">Newsletter Email</label>
-                                <input type="email" name="email" id="newsletter-email" class="form-control form-control-lg" placeholder="Your your email and hit enter" autocomplete="off">
-                            </div>
-                        </form>
-                    </div>
-                </div><!-- Newsletter end -->
-            </div><!-- Col end -->
-
-        </div><!-- Content row end -->
-    </div>
-    <!--/ Container end -->
 </section>
-<!--/ subscribe end -->
+<!-- Content end -->
 
 @foreach($menu->data as $menuItem)
 @if($menuItem->menu_id == 11 && $menuItem->active == 'Y')
-<section id="news" class="news">
+<section id="news" class="news solid-bg">
     <div class="container">
         <div class="row text-center">
             <div class="col-12">

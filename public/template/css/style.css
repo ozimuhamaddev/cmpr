@@ -196,7 +196,7 @@ a:focus {
 }
 
 .solid-bg {
-  background: #f9f9f9;
+  background: #eeeeee;
 }
 
 .dark-bg {
@@ -1892,7 +1892,7 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
   margin: 0;
 }
 .shuffle-btn-group label.active {
-  color: #212121;
+  color: #ffffff;
   background: #b29629;
 }
 .shuffle-btn-group label input {
@@ -1906,8 +1906,15 @@ ul.navbar-nav > li.header-get-a-quote:hover > a:after {
 .shuffle-item .project-img-container {
   position: relative;
   overflow: hidden;
+  height: 270px; /* Set the fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .shuffle-item .project-img-container img {
+  width: auto;
+  height: 100%; /* Ensure the height fits the container */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
   transform: perspective(1px) scale3d(1.1, 1.1, 1);
   transition: all 400ms;
 }
