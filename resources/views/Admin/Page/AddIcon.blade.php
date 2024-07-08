@@ -1,6 +1,6 @@
 <style>
   .image-container {
-    width: 400px;
+    width: 200px;
     /* 30% of the viewport height */
     overflow: hidden;
     display: flex;
@@ -21,29 +21,18 @@
 <div class="modal-body">
   <!-- Multi Columns Form -->
   <form id="formInput" class="row g-3">
-    <div class="col-md-12">
-      <label for="formFile" class="form-label">Title</label>
-      <input type="text" name="title" class="form-control" value="{{$numberclient->data->title}}" required>
+    <div class="col-md-7">
+      <label for="validationCustom03" class="form-label">Image</label>
+      <div class="image-container" style="margin-bottom: 20px;">
+        <img id="image" src="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/default.png') }}" alt="default.png">
+      </div>
+      <input type="file" name="file" class="form-control" id="uploadImage" accept="image/*">
     </div>
     <div class="col-md-12">
-      <label for="formFile" class="form-label">Sub Title</label>
-      <input type="text" name="short_description" class="form-control" value="{{$numberclient->data->short_description}}" required>
-    </div>
-    <div class="col-md-12">
-      <label for="formFile" class="form-label">Icon</label>
-      <select name="icon_id" class="form-control">
-        <option value="" selected>-- Choose a Category --</option>
-        @for($i = 0;$i < count($icon->data);$i++)
-          @if($icon->data[$i]->id == $numberclient->data->icon_id)
-          <option value="{{$icon->data[$i]->id}}" selected>{{ucwords($icon->data[$i]->icon_name)}}</option>
-          @else
-          <option value="{{$icon->data[$i]->id}}">{{ucwords($icon->data[$i]->icon_name)}}</option>
-          @endif
-          @endfor
-      </select>
+      <label for="formFile" class="form-label">Icon Name</label>
+      <input type="text" name="icon_name" class="form-control" id="validationCustom03" required>
     </div>
     <div class="text-center">
-      <input type="hidden" name="id" value="{{$id}}">
       <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
       <button type="reset" class="btn btn-secondary">Reset</button>
     </div>
@@ -64,25 +53,13 @@
     $('#formInput').validate({
       ignore: [],
       rules: {
-        title: {
-          required: true
-        },
-        short_description: {
-          required: true
-        },
-        description: {
+        category_name: {
           required: true
         },
       },
       messages: {
-        title: {
-          required: "Title is required."
-        },
-        short_description: {
-          required: "Short description is required."
-        },
-        description: {
-          required: "Description is required."
+        category_name: {
+          required: "Category is required."
         }
       },
       highlight: function(element) {
@@ -130,7 +107,7 @@
         });
         $.ajax({
           type: "POST",
-          url: "{{ URL::asset(env('APP_URL').'/admin-page/numberclient/do-add') }}",
+          url: "{{ URL::asset(env('APP_URL').'/admin-page/home/do-add-icon') }}",
           data: data,
           processData: false,
           contentType: false,
@@ -142,7 +119,7 @@
             if (data.response_code == '200') {
               $('#modalAction').modal('hide');
               toastr.success('Your action has been successfully submitted.', 'Success!');
-              var dataTable = $('#users-table').DataTable();
+              var dataTable = $('#data-table-category').DataTable();
               dataTable.ajax.reload(null, false);
               $("#btnSubmit").prop("disabled", false);
             } else {
@@ -152,7 +129,7 @@
               });
               $("#btnSubmit").prop("disabled", false);
             }
-            $('#data-table').DataTable().ajax.reload();
+            $('#data-table-icon').DataTable().ajax.reload();
           },
           error: function(e) {
             console.log("ERROR : ", e);

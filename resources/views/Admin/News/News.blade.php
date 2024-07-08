@@ -205,7 +205,6 @@
                 });
         }
 
-
         if (action == 'deleteCategory') {
             swal({
                     html: true,

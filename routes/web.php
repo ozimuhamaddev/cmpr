@@ -111,5 +111,12 @@ $router->group(['prefix' => 'admin-page'], function () use ($router) {
         $router->get('/clients/edit', '\App\Http\Controllers\Admin\Clients@Edit');
         $router->post('/clients/do-add', '\App\Http\Controllers\Admin\Clients@doAdd');
         $router->get('/clients/do-delete', '\App\Http\Controllers\Admin\Clients@doDelete');
+
+
+        $router->post('/home/listdata-icon', '\App\Http\Controllers\Admin\Home@listdataIcon');
+        $router->get('/home/add-icon', '\App\Http\Controllers\Admin\Home@AddIcon');
+        $router->get('/home/edit-icon', '\App\Http\Controllers\Admin\Home@EditIcon');
+        $router->post('/home/do-add-icon', '\App\Http\Controllers\Admin\Home@doAddIcon');
+        $router->get('/home/do-delete-icon', '\App\Http\Controllers\Admin\Home@doDeleteIcon');
     });
 });

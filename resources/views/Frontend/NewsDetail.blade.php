@@ -1,5 +1,21 @@
 @extends('Frontend/Layout.Main')
 @section('Content')
+<style>
+    .post-image {
+        width: 750px;
+        /* 30% of the viewport height */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 <div id="banner-area" class="banner-area" style="background-image:url({{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/banner/banner1.jpg') }})">
     <div class="banner-text">
         <div class="container">
@@ -48,7 +64,7 @@
 
                     <div class="post-body">
                         <div class="entry-content">
-                            {{$news->data->getDetail->description}}
+                            {!!$news->data->getDetail->description!!}
                         </div>
 
                         <div class="tags-area d-flex align-items-center justify-content-between">

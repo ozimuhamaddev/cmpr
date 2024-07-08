@@ -190,42 +190,6 @@ class Home extends Controller
         return true;
     }
 
-    public function about(Request $request)
-    {
-        $data = [];
-        $data['menu'] = "about";
-        return view('Admin.Page.About', $data);
-    }
-
-    public function projects(Request $request)
-    {
-        $data = [];
-        $data['menu'] = "projects";
-        return view('Admin.Page.Projects', $data);
-    }
-
-    public function services(Request $request)
-    {
-        $data = [];
-        $data['menu'] = "services";
-        return view('Admin.Page.Services', $data);
-    }
-
-    public function news(Request $request)
-    {
-        $data = [];
-        $data['menu'] = "news";
-        return view('Admin.Page.News', $data);
-    }
-
-    public function contact(Request $request)
-    {
-        $data = [];
-        $data['menu'] = "contact";
-        return view('Admin.Page.Contact', $data);
-    }
-
-
     public function uploadImage(Request $request)
     {
         if ($request->hasFile('file')) {
@@ -246,5 +210,137 @@ class Home extends Controller
         }
 
         return response()->json(['error' => 'No file uploaded'], 400);
+    }
+
+    public function listdataIcon(Request $request)
+    {
+        $sanitizedInput = HelperService::sanitizeInput($request);
+        $draw = $sanitizedInput['draw'];
+        $start = $sanitizedInput['start'];
+        $length = $sanitizedInput['length'];
+        $page = ($start == 0) ? 1 : ($start / $length) + 1;
+        $urlMenu = '/admin/icon/index-admin';
+        $sort_by = $request->post('order')[0]['column'];
+        $dir = $request->post('order')[0]['dir'];
+        $search = $sanitizedInput['columns'];
+
+        $param = [
+            "page" => $page,
+            "per_page" => $request->post('length'),
+            "search" => $search,
+            "sort_by" => $sort_by,
+            "dir" => $dir
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken($urlMenu, $param));
+
+        $a = $start + 1;
+        $employee = [];
+        if ($rows) {
+            for ($i = 0; $i < count($rows->data); $i++) {
+                $nestedData['no'] = $a++;
+                $nestedData['icon_name'] = $rows->data[$i]->icon_name;
+                $nestedData['icon_image'] = '<img style="width: 50px;" src="' . env('GLOBAL_PLUGIN_PATH') . '/template/images/icon-image/' . $rows->data[$i]->icon_image . '" alt="' . $rows->data[$i]->icon_image_ori . '">';
+                $menu_access = '';
+                $menu_access .= '<a class="btn btn-warning" style="margin-right:5px" dataaction="editIcon" dataid="' . $rows->data[$i]->id . '" onclick="getaction(this)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+
+                $menu_access .= '<a class="btn btn-danger"style="margin-right:5px" dataaction="deleteIcon"  dataid="' . $rows->data[$i]->id . '" onclick="getaction(this)"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                $nestedData['action'] = $menu_access;
+                $employee[] = $nestedData;
+            }
+
+            $data = array(
+                'draw' => $draw,
+                'recordsTotal' => $rows->recordsTotal,
+                'recordsFiltered' => $rows->recordsTotal,
+                'data' => $employee,
+            );
+        } else {
+            $data = array(
+                'draw' => $draw,
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => $employee,
+            );
+        }
+        echo json_encode($data);
+    }
+
+    public function AddIcon(Request $request)
+    {
+        $data['menu'] = "icon";
+        $data['title'] = "Create Icon";
+        return view('Admin.Page.AddIcon', $data);
+    }
+
+    public function EditIcon(Request $request)
+    {
+        $data['menu'] = "Icon";
+        $data['title'] = "Edit Icon";
+        $data['id'] = $request->id;
+
+        $param = [
+            "id" => $request->id
+        ];
+
+        $data['icon'] = json_decode(HelperService::myCurlToken('/admin/icon/master-icon-detail', $param));
+        return view('Admin.Page.EditIcon', $data);
+    }
+
+    public function doAddIcon(Request $request)
+    {
+        $file_before =  $request->post('file_before');
+        $icon = "";
+        $icon_ori = "";
+        if ($request->hasFile('file')) {
+            // Check if there is a file to delete
+            if ($file_before) {
+                $oldFilePath = base_path('public/template/images/icon-image') . '/' . $file_before;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $icon_ori = $request->file('file')->getClientOriginalName();
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $icon = date('YmdHis') . '.' . $extension;
+            $destinationPath = base_path('public/template/images/icon-image');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $request->file('file')->move($destinationPath, $icon);
+        }
+
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : "",
+            'icon_name' => $request->post('icon_name'),
+            'icon_image' => $icon,
+            'icon_image_ori' => $icon_ori
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/icon/do-add', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
+    }
+
+    public function doDeleteIcon(Request $request)
+    {
+        $param = [
+            'id' => $request->has('id') ? $request->post('id') : ""
+        ];
+
+        $rows = json_decode(HelperService::myCurlToken('/admin/icon/do-delete', $param));
+        // Make a curl request with the parameters
+        // Prepare response data
+        $data['response_code'] = $rows->response_code;
+        $data['message'] = $rows->message;
+
+        // Return JSON response
+        return response()->json($data);
     }
 }
