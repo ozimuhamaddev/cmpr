@@ -52,6 +52,10 @@
                                 <label for="formFile" class="form-label">Long</label>
                                 <input type="text" name="long" class="form-control" value="{{$contact->data->long}}" required>
                             </div>
+                            <div class="col-md-12">
+                                <label for="formFile" class="form-label">Google Map API Key</label>
+                                <input type="text" name="google_map_api_key" class="form-control" value="{{$contact->data->google_map_api_key}}" required>
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>

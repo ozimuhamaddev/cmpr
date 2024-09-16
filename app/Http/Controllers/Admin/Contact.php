@@ -30,6 +30,7 @@ class Contact extends Controller
             'phone' => $request->post('phone'),
             'lat' => $request->post('lat'),
             'long' => $request->post('long'),
+            'google_map_api_key' => $request->post('google_map_api_key'),
         ];
         // Make a curl request with the parameters
         $rows = json_decode(HelperService::myCurlToken('/admin/contact/do-update', $param));

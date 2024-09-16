@@ -55,7 +55,7 @@
       <textarea class="tinymce-seditor validate" name="description">
       </textarea>
     </div>
-    <div class="text-center">
+    <div class="zpull-right">
       <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
       <button type="reset" class="btn btn-secondary">Reset</button>
     </div>

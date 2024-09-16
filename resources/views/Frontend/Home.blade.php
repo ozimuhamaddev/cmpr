@@ -257,7 +257,7 @@
                                             <a href="{{ asset(env('APP_URL').'/projects/'.$projects->data[$a]->id) }}">{{$projects->data[$a]->title}}</a>
                                         </h3>
                                         <p class="project-cat">{{$projects->data[$a]->proj_category_name}}, {!! $projects->data[$a]->short_description !!}</p>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div><!-- shuffle item 1 end -->

@@ -54,8 +54,27 @@
         <div class="gap-60"></div>
 
         <div class="google-map">
-        <div id="map" class="map" data-latitude="40.712776" data-longitude="-74.005974" data-marker="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/marker.png') }}" data-marker-name="Constra"></div>
+
+            <div id="map" class="map" data-latitude="40.712776" data-longitude="-74.005974" data-marker="{{ asset(env('GLOBAL_PLUGIN_PATH').'/template/images/marker.png') }}" data-marker-name="Constra"></div>
         </div>
     </div><!-- Conatiner end -->
 </section><!-- Main container end -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{$contact->data->google_map_api_key}}"></script>
+<script>
+    function initMap() {
+        var location = {
+            lat: "{{$contact->data->lat}}",
+            lng: "{{$contact->data->long}}",
+        };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: location
+        });
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+</script>
 @endsection
